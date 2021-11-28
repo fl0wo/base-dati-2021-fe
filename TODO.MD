@@ -2,11 +2,14 @@
 
 - Make login button do httpRequest
 
-  curl --location --request GET 'http://localhost:5000/login' \
-  --header 'username: flo' \
-  --header 'email: flo' \
-  --header 'password: flo' \
-  --header 'Authorization: Basic ZmxvOmZsbw=='
+curl --location --request GET 'http://localhost:5000/login' \
+--header 'username: flo2' \
+--header 'password: flo' \
+--header 'Authorization: Basic ZmxvOmZsbw=='
+->
+- {
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6ImQwOWI0NjQ1LWE1YTctNGU0Yi05NDNiLTllNGMyODU4NTQ1MSIsImV4cCI6MTYzODExMzU1N30.NlRuPOoLbGkjRC6-WFnJpiKJO18loMD31cwb5-0A5f4"
+  }
 
 - Return to home component userObject:User
 
@@ -23,3 +26,6 @@ curl --location --request GET 'http://localhost:5000/register' \
 
 - Return allert "Registered successful"
 - If already registered return "already registered"
+  {
+  "message": "already registered/successfully"
+  }
