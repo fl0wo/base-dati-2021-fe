@@ -12,6 +12,7 @@ import { LessonReservationComponent } from './lesson-reservation/lesson-reservat
 import {ChunkPipe} from "./weight-room-reservation/weight-room-reservation.component";
 import { HttpClientModule } from '@angular/common/http';
 import {CommonModule} from "@angular/common";
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import {CommonModule} from "@angular/common";
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
