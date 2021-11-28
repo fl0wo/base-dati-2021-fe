@@ -9,7 +9,11 @@
   <button (click)="wantLogin=true">Login</button>
   <button (click)="wantRegister=true">Register</button>
   <app-login *ngIf="wantLogin"></app-login>
-  <app-register [(user)]="me" *ngIf="wantRegister"></app-register>
+
+  <app-register
+    [(user)]="me" *ngIf="wantRegister"
+    [(wantScreen)]="wantRegister"
+  ></app-register>
 
   <p>
     Me :

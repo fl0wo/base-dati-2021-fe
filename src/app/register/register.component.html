@@ -1,55 +1,63 @@
-<section class="hero is-primary is-fullheight">
-  <div class="hero-body">
-    <div class="container">
-      <div class="columns is-centered">
-        <div class="column is-5-tablet is-4-desktop is-3-widescreen">
+<section class="hero is-fullheight">
+  <div>
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column box is-5-tablet is-4-desktop is-max-widescreen">
 
-          <input-field
-            [(field)]="user.email"
-            inputType="email"
-            inputPlaceHolder="flo@gmail.com"
-            label="Email"
-            [icon]="icons.email"
-          >
-          </input-field>
-
-          <input-field
-            [(field)]="user.name"
-            inputType="name"
-            inputPlaceHolder="Flo"
-            label="Name"
-            [icon]="icons.name"
-          >
-          </input-field>
-
-          <input-field
-            [(field)]="user.surname"
-            inputType="surname"
-            inputPlaceHolder="Sab"
-            label="Surname"
-            [icon]="icons.surname"
-          >
-          </input-field>
-
-          <input-field
-            [(field)]="user.password"
-            inputType="password"
-            inputPlaceHolder="*********"
-            label="Password"
-            [icon]="icons.pwd"
-          >
-          </input-field>
-
-            <div class="field">
-              <button (click)="this.registerUser()" class="button">
-                Register
-              </button>
+            <div>
+              <h1 class="title">Registration</h1>
+              <h2 class="subtitle">Be carefull</h2>
             </div>
 
-          {{user | json}}
+            <input-field
+              [(field)]="user.email"
+              inputType="email"
+              inputPlaceHolder="flo@gmail.com"
+              label="Email"
+              [icon]="icons.email"
+            >
+            </input-field>
+
+            <input-field
+              [(field)]="user.name"
+              inputType="name"
+              inputPlaceHolder="Flo"
+              label="Name"
+              [icon]="icons.name"
+            >
+            </input-field>
+
+            <input-field
+              [(field)]="user.surname"
+              inputType="surname"
+              inputPlaceHolder="Sab"
+              label="Surname"
+              [icon]="icons.surname"
+            >
+            </input-field>
+
+            <input-field
+              [(field)]="user.password"
+              inputType="password"
+              inputPlaceHolder="*********"
+              label="Password"
+              [icon]="icons.pwd"
+            >
+            </input-field>
+
+              <div class="field">
+                <button (click)="this.registerUser()" class="button">
+                  Register
+                </button>
+              </div>
+
+            {{user | json}}
+          </div>
         </div>
       </div>
     </div>
+
   </div>
 </section>
 

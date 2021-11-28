@@ -15,6 +15,9 @@ import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { InputFieldComponent } from './shared-components/input-field/input-field.component';
+import { MessageResponseDialogComponent } from './shared-components/message-response-dialog/message-response-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -26,7 +29,8 @@ import { InputFieldComponent } from './shared-components/input-field/input-field
     WeightRoomReservationComponent,
     LessonReservationComponent,
     ChunkPipe,
-    InputFieldComponent
+    InputFieldComponent,
+    MessageResponseDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +38,10 @@ import { InputFieldComponent } from './shared-components/input-field/input-field
     HttpClientModule,
     CommonModule,
     FormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatDialogModule,
+    BrowserModule,
+    NoopAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
