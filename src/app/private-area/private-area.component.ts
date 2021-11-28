@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {User} from "../../models/user";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-private-area',
@@ -7,7 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PrivateAreaComponent implements OnInit {
 
-  constructor() { }
+  me!:User;
+
+  constructor(public router:Router) {
+    let currentNavigation = this.router.getCurrentNavigation();
+    if(currentNavigation!=null) {
+      this.me = currentNavigation?.extras.state!['user'];
+    } else {
+      console.log("is null in constructor")
+    }
+  }
 
   ngOnInit(): void {
   }

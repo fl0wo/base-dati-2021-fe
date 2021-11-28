@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from "../api.service";
 import {User} from "../../models/user";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -14,12 +15,20 @@ export class HomeComponent implements OnInit {
   users: any[]= [];
   me: User =  new User();
 
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService,public router: Router) { }
 
   ngOnInit(): void {
     this.api.getAllUsers().subscribe( (users:any[]) =>{
       this.users = users;
     })
+  }
+
+  areaPersonale(){
+    this.router.navigateByUrl("/me",{
+      state : {
+        user : this.me
+      }
+    });
   }
 
 }

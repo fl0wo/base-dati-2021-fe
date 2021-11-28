@@ -8,6 +8,7 @@
   </h2>
   <button (click)="wantLogin=true">Login</button>
   <button (click)="wantRegister=true">Register</button>
+  <button (click)="this.areaPersonale()">Area Personale</button>
   <app-login [(user)]="me" [(wantScreen)]="wantLogin" *ngIf="wantLogin"></app-login>
 
   <app-register
@@ -15,10 +16,7 @@
     [(wantScreen)]="wantRegister"
   ></app-register>
 
-  <p>
-    Me :
-    {{me | json}}
-  </p>
+
 
   <p>
     Users :
