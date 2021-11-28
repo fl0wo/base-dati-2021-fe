@@ -6,7 +6,7 @@ import { faAddressBook } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './input-field.component.html',
   styleUrls: ['./input-field.component.css']
 })
-export class InputFieldComponent implements OnInit {
+export class InputFieldComponent{
 
   @Input() icon = faAddressBook;
   @Input() field= {};
@@ -18,9 +18,6 @@ export class InputFieldComponent implements OnInit {
   @Input() label = "";
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
   updateField() {
     this.fieldChange.next(this.field);
