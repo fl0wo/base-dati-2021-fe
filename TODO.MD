@@ -2,7 +2,7 @@
 
 - Make login button do httpRequest
 
-curl --location --request GET 'http://localhost:5000/login' \
+curl --location --request GET 'http://vps-487579d2.vps.ovh.net:5000/login' \
 --header 'username: flo2' \
 --header 'password: flo' \
 --header 'Authorization: Basic ZmxvOmZsbw=='
@@ -17,7 +17,7 @@ curl --location --request GET 'http://localhost:5000/login' \
 
 - Make register button do httpRequest
 
-curl --location --request GET 'http://localhost:5000/register' \
+curl --location --request GET 'http://vps-487579d2.vps.ovh.net:5000/register' \
 --header 'Content-Type: application/json' \
 --data-raw '{
 "email" : "flo",

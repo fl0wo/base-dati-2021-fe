@@ -10,6 +10,8 @@ import { PrivateAreaComponent } from './private-area/private-area.component';
 import { WeightRoomReservationComponent } from './weight-room-reservation/weight-room-reservation.component';
 import { LessonReservationComponent } from './lesson-reservation/lesson-reservation.component';
 import {ChunkPipe} from "./weight-room-reservation/weight-room-reservation.component";
+import { HttpClientModule } from '@angular/common/http';
+import {CommonModule} from "@angular/common";
 
 
 @NgModule({
@@ -25,7 +27,9 @@ import {ChunkPipe} from "./weight-room-reservation/weight-room-reservation.compo
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

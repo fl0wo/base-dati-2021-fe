@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ApiService} from "../api.service";
 
 @Component({
   selector: 'app-home',
@@ -9,10 +10,15 @@ export class HomeComponent implements OnInit {
 
   wantLogin:boolean = false;
   wantRegister: boolean = false;
+  users: any[]= [];
 
-  constructor() { }
+
+  constructor(private api: ApiService) { }
 
   ngOnInit(): void {
+    this.api.getAllUsers().subscribe( (users:any[]) =>{
+      this.users = users;
+    })
   }
 
 }

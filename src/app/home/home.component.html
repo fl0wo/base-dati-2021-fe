@@ -7,7 +7,9 @@
   <button (click)="wantRegister=true">Register</button>
   <app-login *ngIf="wantLogin"></app-login>
   <app-register *ngIf="wantRegister"></app-register>
-  <app-weight-room-reservation></app-weight-room-reservation>
+
+  {{users | json}}
 </section>
+<app-weight-room-reservation></app-weight-room-reservation>
 
 
