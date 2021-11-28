@@ -37,8 +37,12 @@ export class RegisterComponent {
         }
       });
 
-      this.wantScreen=false;
-      this.wantScreenChange.next(this.wantScreen);
+      this.closeScreen()
     });
+  }
+
+  closeScreen() {
+    this.wantScreen=false;
+    this.wantScreenChange.next(this.wantScreen);
   }
 }

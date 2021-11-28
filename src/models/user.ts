@@ -8,6 +8,7 @@ export class User {
     role: Role = Role.CUSTOMER;
     email: string = "";
     password: string = "";
+    token: string="";
 
 
 

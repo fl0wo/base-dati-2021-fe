@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {User} from "../models/user";
-import {MessageReponse} from "../models/reponse";
-import {Observable} from "rxjs";
+import {MessageReponse, TokenResponse} from "../models/reponse";
+import {catchError, map, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -28,4 +28,13 @@ export class ApiService {
     return this.httpClient.post<MessageReponse>(this.REST_API_SERVER + '/register', user.toRestModel(), this.httpOptions);
   }
 
+  public loginUser(user : User) : Observable<MessageReponse> {
+    let headers = this.httpOptions.headers
+      .set("username", user.email)
+      .set("password", user.password);
+
+    return this.httpClient.get<TokenResponse>(this.REST_API_SERVER + '/login', {headers}).pipe(
+      map((e) => MessageReponse.toMessage(e.token))
+    );
+  }
 }
