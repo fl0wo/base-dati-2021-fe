@@ -4,43 +4,42 @@
       <div class="columns is-centered">
         <div class="column is-5-tablet is-4-desktop is-3-widescreen">
 
-            <div class="field">
-              <label for="" class="label">Email</label>
-              <div class="control has-icons-left">
-                <input [(ngModel)]="user.email" type="email" placeholder="e.g. bobsmith@gmail.com" class="input" required>
-                <span class="icon is-small is-left">
-                  <fa-icon [icon]="icons.email"></fa-icon>
-                </span>
-              </div>
-            </div>
-          <div class="field">
-            <label for="" class="label">Name</label>
-            <div class="control has-icons-left">
-              <input [(ngModel)]="user.name" type="name" placeholder="e.g. bobsmith" class="input" required>
-              <span class="icon is-small is-left">
-                  <fa-icon [icon]="icons.name"></fa-icon>
-                </span>
-            </div>
-          </div>
-          <div class="field">
-            <label for="" class="label">Surname</label>
-            <div class="control has-icons-left">
-              <input [(ngModel)]="user.surname" type="surname" placeholder="e.g. bobsmith" class="input" required>
-              <span class="icon is-small is-left">
-                  <fa-icon [icon]="icons.surname"></fa-icon>
-                </span>
-            </div>
-          </div>
+          <input-field
+            [(field)]="user.email"
+            inputType="email"
+            inputPlaceHolder="flo@gmail.com"
+            label="Email"
+            [icon]="icons.email"
+          >
+          </input-field>
 
-            <div class="field">
-              <label for="" class="label">Password</label>
-              <div class="control has-icons-left">
-                <input [(ngModel)]="user.password" type="password" placeholder="*******" class="input" required>
-                <span class="icon is-small is-left">
-                  <fa-icon [icon]="icons.pwd"></fa-icon>
-                </span>
-              </div>
-            </div>
+          <input-field
+            [(field)]="user.name"
+            inputType="name"
+            inputPlaceHolder="Flo"
+            label="Name"
+            [icon]="icons.name"
+          >
+          </input-field>
+
+          <input-field
+            [(field)]="user.surname"
+            inputType="surname"
+            inputPlaceHolder="Sab"
+            label="Surname"
+            [icon]="icons.surname"
+          >
+          </input-field>
+
+          <input-field
+            [(field)]="user.password"
+            inputType="password"
+            inputPlaceHolder="*********"
+            label="Password"
+            [icon]="icons.pwd"
+          >
+          </input-field>
+
             <div class="field">
               <button (click)="this.registerUser()" class="button is-success">
                 Register

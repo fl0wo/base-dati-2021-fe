@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { InputFieldComponent } from './shared-components/input-field/input-field.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     PrivateAreaComponent,
     WeightRoomReservationComponent,
     LessonReservationComponent,
-    ChunkPipe
+    ChunkPipe,
+    InputFieldComponent
   ],
   imports: [
     BrowserModule,
