@@ -13,7 +13,7 @@ import {ChunkPipe} from "./weight-room-reservation/weight-room-reservation.compo
 import { HttpClientModule } from '@angular/common/http';
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,8 @@ import {FormsModule} from "@angular/forms";
     AppRoutingModule,
     HttpClientModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

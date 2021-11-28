@@ -1,3 +1,6 @@
+<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js">
+
+</script>
 <section class="section is-large">
   <h1 class="title">Zyzz Gym</h1>
   <h2 class="subtitle">
@@ -8,9 +11,16 @@
   <app-login *ngIf="wantLogin"></app-login>
   <app-register [(user)]="me" *ngIf="wantRegister"></app-register>
 
-  {{me | json}}
-  AAA
-  {{users | json}}
+  <p>
+    Me :
+    {{me | json}}
+  </p>
+
+  <p>
+    Users :
+    {{users | json}}
+  </p>
+
 </section>
 <app-weight-room-reservation></app-weight-room-reservation>
 
