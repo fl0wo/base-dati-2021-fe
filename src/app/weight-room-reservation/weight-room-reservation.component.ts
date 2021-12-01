@@ -129,4 +129,8 @@ export class WeightRoomReservationComponent implements OnInit {
       this.loadSlotDetail = true;
       this.selectedSlot = slot;
   }
+
+  getSlotsOf(date: Date) : Slot[] {
+    return this.slots.filter(slot=> new Date(slot.date).getTime() == new Date(date).getTime());
+  }
 }

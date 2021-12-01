@@ -19,6 +19,7 @@ import { MessageResponseDialogComponent } from './shared-components/message-resp
 import {MatDialogModule} from "@angular/material/dialog";
 import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-browser/animations";
 import { SlotDetailComponent } from './slot-detail/slot-detail.component';
+import { DayDetailComponent } from './day-detail/day-detail.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { SlotDetailComponent } from './slot-detail/slot-detail.component';
     ChunkPipe,
     InputFieldComponent,
     MessageResponseDialogComponent,
-    SlotDetailComponent
+    SlotDetailComponent,
+    DayDetailComponent
   ],
   imports: [
     BrowserModule,

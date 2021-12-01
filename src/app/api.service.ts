@@ -59,12 +59,12 @@ export class ApiService {
   }
 
   getMe(jwt: string) {
-
     let headers = this.httpOptions.headers
       .set("x-access-token", jwt);
-
     return this.httpClient.get<IResponse>(this.REST_API_SERVER + '/me', {headers}).pipe(
       map(response => response.data)
     );
   }
-};
+
+
+}
