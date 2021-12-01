@@ -44,7 +44,7 @@ export class ApiService {
   }
 
   private _objToModel(obj: ISlot): Slot {
-    return new Slot(obj.id, obj.date, obj.time_from, obj.time_to, obj.max_capacity, obj.current_reservations);
+    return new Slot(obj.id, obj.date, obj.time_from, obj.time_to, obj.max_capacity, obj.current_reservations,obj.title,obj.description);
   }
 
   private _objsToModels(objs: ISlot[]): Slot[] {

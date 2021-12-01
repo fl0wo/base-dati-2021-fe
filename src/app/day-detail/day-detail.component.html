@@ -5,3 +5,13 @@
     {{data.slots | json}}
   </ul>
 </div>
+
+<ngx-timeline-acracode [events]="events">
+  <ng-template let-event let-index="rowIndex" timelineBody>
+    {{event.body}}
+  </ng-template>
+</ngx-timeline-acracode>
+
+
+<!--<ngx-timeline [itens]="list"></ngx-timeline>-->
+

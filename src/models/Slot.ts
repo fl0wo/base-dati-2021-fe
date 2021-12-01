@@ -5,7 +5,9 @@ export class Slot{
                public time_from : Date,
                public time_to : Date,
                public max_capacity: number,
-               public current_capacity: number) {
+               public current_capacity: number,
+               public title: string,
+               public description: string) {
   }
 
   get info(): string {

@@ -20,6 +20,8 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-browser/animations";
 import { SlotDetailComponent } from './slot-detail/slot-detail.component';
 import { DayDetailComponent } from './day-detail/day-detail.component';
+import { NgxTimelineAlbeModule } from 'ngx-timeline-albe';
+import { NgxTimelineAcracodeModule } from 'ngx-timeline-acracode';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ import { DayDetailComponent } from './day-detail/day-detail.component';
     MatDialogModule,
     BrowserModule,
     NoopAnimationsModule,
-    HttpClientJsonpModule
+    HttpClientJsonpModule,
+    NgxTimelineAcracodeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

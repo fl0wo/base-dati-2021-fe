@@ -25,6 +25,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.4",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "angular-json-calendar": "^2.0.0",
+    "angular-timeline": "^1.7.0",
     "bulma": "^0.9.3",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
@@ -43,6 +44,8 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
+    "ngx-timeline-acracode": "^2.1.2",
+    "ngx-timeline-albe": "^1.2.11",
     "typescript": "~4.4.3"
   }
 }
