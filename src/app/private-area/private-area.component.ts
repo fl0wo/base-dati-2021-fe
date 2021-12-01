@@ -10,7 +10,7 @@ import {ApiService} from "../api.service";
 })
 export class PrivateAreaComponent implements OnInit {
 
-  me!:User;
+  me:User = new User();
 
   constructor(public router:Router,private api:ApiService) {
     let currentNavigation = this.router.getCurrentNavigation();
@@ -18,7 +18,6 @@ export class PrivateAreaComponent implements OnInit {
       let jwt = currentNavigation?.extras.state!['user'].token;
       if (jwt != null) {
         api.getMe(jwt).subscribe(user=>{
-          this.me = new User();
           this.me.surname = user.surname;
           this.me.name = user.name;
           this.me.role = user.role;
