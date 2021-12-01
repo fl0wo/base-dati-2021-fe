@@ -6,9 +6,25 @@
 - Popolare tabella slots
 - creare component per il singolo giorno in dettaglio
 - ROTTE:
-- getAllSlots => [{}] select *, count (*) as current weightroomreservation w inner join
-slot s on slot.id=w.slot
-group by slot.id, count (*)
+
 -
 -
-  - TANSAZIONE { WeightRoom Reservation (comprende 1 slot) + Reservation}
+- TANSAZIONE { WeightRoom Reservation (comprende 1 slot) + Reservation}
+
+
+Me as a MANAGER :
+1) Component see slot
+2) if role >= manager add slot button
+3) /addSlot
+
+Me as CUSTOMER :
+1) Component see slot
+2) if role == user subscribe to this slot
+        -> TANSAZIONE {WeightRoom Reservation (comprende 1 slot) + Reservation}
+3) want to see slots from calendar
+4) if
+        free_capacity > 60       green
+        60 > free_capacity > 30  orange
+        30 > free_capacity       red
+
+

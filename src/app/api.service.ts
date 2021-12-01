@@ -16,7 +16,7 @@ export class ApiService {
    httpOptions = {
     headers: new HttpHeaders({
       'Access-Control-Allow-Origin':'*',
-      'Authorization':'authkey'
+      'x-access-token':'authkey'
     })
   };
 
@@ -38,11 +38,10 @@ export class ApiService {
       .set("username", user.email)
       .set("password", user.password);
 
-    return this.httpClient.get<TokenResponse>(this.REST_API_SERVER + '/login', {headers}).pipe(
-      map((e) => MessageReponse.toMessage(e.token))
+    return this.httpClient.get<IResponse>(this.REST_API_SERVER + '/login', {headers}).pipe(
+      map((e) => MessageReponse.toMessage(e.data.token))
     );
   }
-
 
   private _objToModel(obj: ISlot): Slot {
     return new Slot(obj.id, obj.date, obj.time_from, obj.time_to, obj.max_capacity, obj.current_reservations);
@@ -51,11 +50,21 @@ export class ApiService {
   private _objsToModels(objs: ISlot[]): Slot[] {
     return objs.map(u => this._objToModel(u));
   }
+
   /* GET heroes whose name contains search term */
   getSlots() : Observable<Slot[]>{
-    return this.httpClient.get<IResponse>(this.REST_API_SERVER + '/slotsReservations').pipe(
+    return this.httpClient.get<IResponse>(this.REST_API_SERVER + '/slotsReservations',this.httpOptions).pipe(
       map(response => this._objsToModels(response.data))
     );
   }
 
-}
+  getMe(jwt: string) {
+
+    let headers = this.httpOptions.headers
+      .set("x-access-token", jwt);
+
+    return this.httpClient.get<IResponse>(this.REST_API_SERVER + '/me', {headers}).pipe(
+      map(response => response.data)
+    );
+  }
+};
