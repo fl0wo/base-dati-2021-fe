@@ -27,7 +27,7 @@
       class="calendar-day"
         [ngClass]="{'past-date': day.isPastDate, 'today': day.isToday}"
         *ngFor="let day of week; let j = index"
-       (click)="this.getSlotsOf(day.date)">
+       (click)="this.showSlotsOf(day.date)">
       <div class="calendar-day-header" [ngClass]="{'blue-date': day.isToday}">
 
         <div *ngFor="let slot of this.getSlotsOf(day.date)">

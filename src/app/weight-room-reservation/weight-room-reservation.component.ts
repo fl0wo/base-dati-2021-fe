@@ -2,6 +2,8 @@ import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
 import {ApiService} from "../api.service";
 import {Slot} from "../../models/Slot";
 import {MessageResponseDialogComponent} from "../shared-components/message-response-dialog/message-response-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {DayDetailComponent} from "../day-detail/day-detail.component";
 
 export class CalendarDay {
   public date: Date;
@@ -58,7 +60,7 @@ export class WeightRoomReservationComponent implements OnInit {
 
   public slots: Slot[] = [];
 
-  constructor(private api:ApiService) {
+  constructor(private api:ApiService,public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -132,5 +134,14 @@ export class WeightRoomReservationComponent implements OnInit {
 
   getSlotsOf(date: Date) : Slot[] {
     return this.slots.filter(slot=> new Date(slot.date).getTime() == new Date(date).getTime());
+  }
+
+  showSlotsOf(date: Date) {
+    this.dialog.open(DayDetailComponent,{
+      data : {
+        date : date,
+        slots : this.getSlotsOf(date)
+      }
+    });
   }
 }
