@@ -10,7 +10,7 @@ import { PrivateAreaComponent } from './private-area/private-area.component';
 import { WeightRoomReservationComponent } from './weight-room-reservation/weight-room-reservation.component';
 import { LessonReservationComponent } from './lesson-reservation/lesson-reservation.component';
 import {ChunkPipe} from "./weight-room-reservation/weight-room-reservation.component";
-import { HttpClientModule } from '@angular/common/http';
+import {HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -18,6 +18,7 @@ import { InputFieldComponent } from './shared-components/input-field/input-field
 import { MessageResponseDialogComponent } from './shared-components/message-response-dialog/message-response-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-browser/animations";
+import { SlotDetailComponent } from './slot-detail/slot-detail.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-b
     LessonReservationComponent,
     ChunkPipe,
     InputFieldComponent,
-    MessageResponseDialogComponent
+    MessageResponseDialogComponent,
+    SlotDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,8 @@ import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-b
     FontAwesomeModule,
     MatDialogModule,
     BrowserModule,
-    NoopAnimationsModule
+    NoopAnimationsModule,
+    HttpClientJsonpModule
   ],
   providers: [],
   bootstrap: [AppComponent]

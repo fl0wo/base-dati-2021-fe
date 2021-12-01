@@ -1,4 +1,7 @@
 import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
+import {ApiService} from "../api.service";
+import {Slot} from "../../models/Slot";
+import {MessageResponseDialogComponent} from "../shared-components/message-response-dialog/message-response-dialog.component";
 
 export class CalendarDay {
   public date: Date;
@@ -50,9 +53,17 @@ export class WeightRoomReservationComponent implements OnInit {
   ];
   public displayMonth: string = "";
   private monthIndex: number = 0;
+  loadSlotDetail: boolean = false;
+  public selectedSlot!: Slot;
+
+  public slots: Slot[] = [];
+
+  constructor(private api:ApiService) {
+  }
 
   ngOnInit(): void {
     this.generateCalendarDays(this.monthIndex);
+    this.fillCalendarWithSlots();
   }
 
   private generateCalendarDays(monthIndex: number): void {
@@ -108,4 +119,14 @@ export class WeightRoomReservationComponent implements OnInit {
     this.generateCalendarDays(this.monthIndex);
   }
 
+  private fillCalendarWithSlots() {
+    this.api.getSlots().subscribe((slotArray) => {
+      this.slots=slotArray;
+    });
+  }
+
+  openSlotDetail(slot: Slot) {
+      this.loadSlotDetail = true;
+      this.selectedSlot = slot;
+  }
 }

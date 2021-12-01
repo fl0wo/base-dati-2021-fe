@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {User} from "../models/user";
 import {MessageReponse, TokenResponse} from "../models/reponse";
-import {catchError, map, Observable} from "rxjs";
+import {catchError, map, Observable, throwError} from "rxjs";
+import {Slot} from "../models/Slot";
+import {ISlot} from "../models/ISlot";
+import {IResponse} from "../models/Response";
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +21,7 @@ export class ApiService {
   };
 
   private REST_API_SERVER = "http://vps-487579d2.vps.ovh.net:5000";
+  private LOCAL_HOST = "http://localhost:5000"
 
   constructor(private httpClient: HttpClient) { }
 
@@ -37,4 +42,20 @@ export class ApiService {
       map((e) => MessageReponse.toMessage(e.token))
     );
   }
+
+
+  private _objToModel(obj: ISlot): Slot {
+    return new Slot(obj.id, obj.date, obj.time_from, obj.time_to, obj.max_capacity, obj.current_reservations);
+  }
+
+  private _objsToModels(objs: ISlot[]): Slot[] {
+    return objs.map(u => this._objToModel(u));
+  }
+  /* GET heroes whose name contains search term */
+  getSlots() : Observable<Slot[]>{
+    return this.httpClient.get<IResponse>(this.REST_API_SERVER + '/slotsReservations').pipe(
+      map(response => this._objsToModels(response.data))
+    );
+  }
+
 }
