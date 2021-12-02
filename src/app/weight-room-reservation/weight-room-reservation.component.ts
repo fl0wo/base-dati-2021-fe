@@ -121,7 +121,7 @@ export class WeightRoomReservationComponent implements OnInit {
     this.generateCalendarDays(this.monthIndex);
   }
 
-  private fillCalendarWithSlots() {
+  public fillCalendarWithSlots() {
     this.api.getSlots().subscribe((slotArray) => {
       this.slots=slotArray;
     });

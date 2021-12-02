@@ -8,10 +8,12 @@
 
 <ngx-timeline-acracode [events]="events">
   <ng-template let-event let-index="rowIndex" timelineBody>
-    {{event.body}}
-  </ng-template>
-</ngx-timeline-acracode>
+    {{event.body.description}}
+    <br>
+     <button *ngIf="event.body.slot.current_capacity < event.body.slot.max_capacity" (click)="makeSlotReservation(event.body.slot.id)" class="button is-warning">Subscribe</button>
+   </ng-template>
+ </ngx-timeline-acracode>
 
-
-<!--<ngx-timeline [itens]="list"></ngx-timeline>-->
+<!--TODO:FARE CONTROLLO BUTTON APPARE SOLO SE UTENTE è CUSTOMER!!!!-->
+ <!--<ngx-timeline [itens]="list"></ngx-timeline>-->
 

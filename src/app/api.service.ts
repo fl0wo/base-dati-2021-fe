@@ -7,11 +7,14 @@ import {Slot} from "../models/Slot";
 import {ISlot} from "../models/ISlot";
 import {IResponse} from "../models/Response";
 
+const STORAGE_USER_TOKEN_KEY = 'user.token';
+const STORAGE_USER_KEY = 'user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
+
 
    httpOptions = {
     headers: new HttpHeaders({
@@ -19,9 +22,8 @@ export class ApiService {
       'x-access-token':'authkey'
     })
   };
-
-  private REST_API_SERVER = "http://vps-487579d2.vps.ovh.net:5000";
-  private LOCAL_HOST = "http://localhost:5000"
+  private LOCAL_HOST = "http://localhost:5000";
+  private REST_API_SERVER = this.LOCAL_HOST;//"http://vps-487579d2.vps.ovh.net:5000";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -39,7 +41,10 @@ export class ApiService {
       .set("password", user.password);
 
     return this.httpClient.get<IResponse>(this.REST_API_SERVER + '/login', {headers}).pipe(
-      map((e) => MessageReponse.toMessage(e.data.token))
+      map((e) =>{
+        localStorage.setItem(STORAGE_USER_KEY, JSON.parse(window.atob(e.data.token.split(".")[1])).id);
+        localStorage.setItem(STORAGE_USER_TOKEN_KEY, e.data.token);
+        return MessageReponse.toMessage(e.data.token);})
     );
   }
 
@@ -64,6 +69,24 @@ export class ApiService {
     return this.httpClient.get<IResponse>(this.REST_API_SERVER + '/me', {headers}).pipe(
       map(response => response.data)
     );
+  }
+
+  makeSlotReservation(idSlot: string, idUser:string, ){
+    let headers = this.httpOptions.headers
+      .set("x-access-token", this.token);
+      return this.httpClient.post<IResponse>(this.REST_API_SERVER + '/slots/reservation', {'idSlot': idSlot, 'idUser':idUser}, {headers});
+  }
+
+  get token(): string {
+    return localStorage.getItem(STORAGE_USER_TOKEN_KEY) || '';
+  }
+
+  get user(): string {
+    return localStorage.getItem(STORAGE_USER_KEY) || '';
+  }
+
+  public isLogged(): boolean {
+    return !!localStorage.getItem(STORAGE_USER_TOKEN_KEY);
   }
 
 

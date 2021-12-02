@@ -13,12 +13,10 @@
 
 
 Me as a MANAGER :
-1) Component see slot
 2) if role >= manager add slot button
-3) /addSlot
+
 
 Me as CUSTOMER :
-1) Component see slot
 2) if role == user subscribe to this slot
         -> TANSAZIONE {WeightRoom Reservation (comprende 1 slot) + Reservation}
 3) want to see slots from calendar
@@ -27,4 +25,6 @@ Me as CUSTOMER :
         60 > free_capacity > 30  orange
         30 > free_capacity       red
 
+- Create Singleton for slots and refresh slots when needed
+  - User must have array of giorni prenotati
 

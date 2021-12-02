@@ -1,7 +1,11 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import {Slot} from "../../models/Slot";
 import {TimelineModel} from "ngx-timeline-acracode";
+import {ApiService} from "../api.service";
+import {User} from "../../models/user";
+import {MessageResponseDialogComponent} from "../shared-components/message-response-dialog/message-response-dialog.component";
+import {WeightRoomReservationComponent} from "../weight-room-reservation/weight-room-reservation.component";
 
 @Component({
   selector: 'app-day-detail',
@@ -32,7 +36,7 @@ export class DayDetailComponent implements OnInit {
               public data: {
     date:Date,
     slots:Slot[]
-  }) { }
+  }, private api:ApiService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.events = new Array<TimelineModel>();
@@ -47,10 +51,26 @@ export class DayDetailComponent implements OnInit {
       this.events.push({
         'date': this.data.date,
         'header': slot.title + " " + slot.time_from + " - "  + slot.time_to,
-        'body': slot.description + "\nCurrent capacity: " + slot.current_capacity + "/"+ slot.max_capacity,
+        'body': {'description': slot.description + "\nCurrent capacity: " + slot.current_capacity + "/"+ slot.max_capacity
+                ,'slot':slot},
         'iconheadercolor':'rgb(255, 25, 38)'
       });
     })
    }
+
+
+  makeSlotReservation(idSlot: string) {
+
+        let idUser : string = this.api.user;
+        this.api.makeSlotReservation(idSlot, idUser).subscribe(msg=>{
+          this.dialog.open(MessageResponseDialogComponent, {
+            data : {
+              title : "New slots reservation went:",
+              message : msg.message
+            }
+          });
+        });
+
+  }
 
 }
