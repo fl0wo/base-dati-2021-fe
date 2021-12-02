@@ -27,4 +27,14 @@ Me as CUSTOMER :
 
 - Create Singleton for slots and refresh slots when needed
   - User must have array of giorni prenotati
+  - rinnominare il component "WeightRoomReservations", in questo component:
+  - mettere anche lezioni e i checkbox in alto
+
+#Area privata
+  - dati/anagrafica utente,
+  - mostrare abbonamento di quel utente(popolarlo a mano nel db)
+  - -Se avanza tempo aggiungere pulsante "inserisci abbonamento" che aggiunge un nuovo utente e un nuovo abbonamento (solo il manager puo farlo)
+  - mostrare le transazioni che ha fatto quell utente (popolarlo a mano nel db)
+  - Mostrare lista di prenotazioni sia weightroom sia lezioni di quell utente, per farlo mi sa che bisogna fare un:
+Reservations inner join WeightRoomReservations UNION ALL Reservations inner join LessonReservations
 
