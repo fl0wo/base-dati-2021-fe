@@ -10,8 +10,8 @@
   <ng-template let-event let-index="rowIndex" timelineBody>
     {{event.body.description}}
     <br>
-     <button *ngIf="event.body.slot.current_capacity < event.body.slot.max_capacity" (click)="makeSlotReservation(event.body.slot.id)" class="button is-warning">Subscribe</button>
-   </ng-template>
+     <button *ngIf="event.body.slot && event.body.slot.current_reservations < event.body.slot.max_capacity" (click)="makeSlotReservation(event.body.slot.id)" class="button is-warning">Subscribe</button>
+  </ng-template>
  </ngx-timeline-acracode>
 
 <!--TODO:FARE CONTROLLO BUTTON APPARE SOLO SE UTENTE è CUSTOMER!!!!-->

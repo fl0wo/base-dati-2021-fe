@@ -68,23 +68,23 @@ export class DayDetailComponent implements OnInit {
         new Date('1970-01-01T' + b.time + 'Z').getTime()
     })
 
-    this.data.slots.forEach(slot=>{
+    this.data.slots.forEach((slot)=>{
       this.events.push({
         'date': this.data.date,
         'header': slot.title + " " + slot.time_from + " - "  + slot.time_to,
         'body': {'description': slot.description + "\nCurrent capacity: " + slot.current_reservations + "/"+ slot.max_capacity
                 ,'slot':slot},
-        'iconheadercolor':'rgb(255, 25, 38)'
+        'iconheadercolor':'rgb(163, 69, 73)'
       });
     })
 
-    this.data.lessons.forEach(lesson=>{
+    this.data.lessons.forEach( (lesson)=>{
       this.events.push({
         'date': this.data.date,
         'header': lesson.course + " " + lesson.time,
         'body': {'description': lesson.course_description + "\nCurrent capacity: " + lesson.current_reservations + "/"+ lesson.max_participants
           ,'slot':lesson},
-        'iconheadercolor':'rgb(255, 25, 38)'
+        'iconheadercolor':'rgb(163, 69, 73)'
       });
     })
    }

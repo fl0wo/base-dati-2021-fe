@@ -38,19 +38,20 @@ import { NgxTimelineAcracodeModule } from 'ngx-timeline-acracode';
     SlotDetailComponent,
     DayDetailComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    CommonModule,
-    FormsModule,
-    FontAwesomeModule,
-    MatDialogModule,
-    BrowserModule,
-    NoopAnimationsModule,
-    HttpClientJsonpModule,
-    NgxTimelineAcracodeModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        CommonModule,
+        FormsModule,
+        FontAwesomeModule,
+        MatDialogModule,
+        BrowserModule,
+        NoopAnimationsModule,
+        HttpClientJsonpModule,
+        NgxTimelineAcracodeModule,
+        NgxTimelineAcracodeModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
