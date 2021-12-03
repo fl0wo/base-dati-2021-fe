@@ -17,17 +17,11 @@ export class PrivateAreaComponent implements OnInit {
   constructor(public router:Router,public api:ApiService) {}
 
   ngOnInit(): void {
-      let jwt = this.api.token;
-      if (jwt != null) {
-        this.api.getMe(jwt).subscribe(user=>{
-          this.me.surname = user.surname;
-          this.me.name = user.name;
-          this.me.role = user.role;
-          this.me.email = user.email;
-        });
-        this.api.getMySubscription(jwt).subscribe(subs=>{
-          this.subscriptions=subs;
-        });
-    }
+      this.api.getMe().subscribe(user=>{
+        this.me = user;
+      });
+      this.api.getMySubscription().subscribe(subs=>{
+        this.subscriptions=subs;
+      });
   }
 }

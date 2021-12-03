@@ -7,7 +7,7 @@ export class Slot implements Returnable<Slot>{
                public time_from : Date,
                public time_to : Date,
                public max_capacity: number,
-               public current_capacity: number,
+               public current_reservations: number,
                public title: string,
                public description: string) {
   }

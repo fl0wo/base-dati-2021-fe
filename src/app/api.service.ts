@@ -1,10 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from "../models/User";
-import {MessageReponse, TokenResponse} from "../models/MessageResponse";
-import {catchError, map, Observable, throwError} from "rxjs";
+import {MessageReponse} from "../models/MessageResponse";
+import {map, Observable} from "rxjs";
 import {Slot} from "../models/Slot";
-import {ISlot} from "../models/ISlot";
 import {Response} from "../models/Response";
 import {Lesson} from "../models/Lesson";
 import {Subscription} from "../models/Subscription";
@@ -18,22 +17,21 @@ const STORAGE_USER_KEY = 'user';
 })
 export class ApiService {
 
-
   httpOptions = {
     headers: new HttpHeaders({
       'Access-Control-Allow-Origin': '*',
       'x-access-token': 'authkey'
     })
   };
+
   private LOCAL_HOST = "http://localhost:5000";
   private REST_API_SERVER = "http://vps-487579d2.vps.ovh.net:5000";
 
-  constructor(private httpClient: HttpClient) {
-  }
+  constructor(private httpClient: HttpClient) {}
 
-  public getAllUsers(jwt: string) {
-    let headers = this.httpOptions.headers.set("x-access-token", jwt);
-    return this.getMultipleAndMap<User>('/users', {headers});
+  public getAllUsers() {
+    this.updateToken();
+    return this.getMultipleAndMap<User>('/users', this.httpOptions);
   }
 
   public registerUser(user: User): Observable<MessageReponse> {
@@ -57,23 +55,24 @@ export class ApiService {
     return this.getMultipleAndMap<Slot>('/slotsReservations', this.httpOptions);
   }
 
-  getMe(jwt: string): Observable<User> {
-    let headers = this.httpOptions.headers.set("x-access-token", jwt);
-    return this.getAndMap<User>('/me', {headers});
+  getMe(): Observable<User> {
+    this.updateToken();
+    return this.getAndMap<User>('/me', this.httpOptions);
   }
 
-  makeSlotReservation(idSlot: string, idUser: string) {
-    let headers = this.httpOptions.headers.set("x-access-token", this.token);
-    return this.post<any>('/slots/reservation', {'idSlot': idSlot, 'idUser': idUser}, {headers});
+  makeSlotReservation(idSlot: string) {
+    this.updateToken();
+    let idUser : string = this.user;
+    return this.post<any>('/slots/reservation', {'idSlot': idSlot, 'idUser': idUser}, this.httpOptions);
   }
 
   getLessons(): Observable<Lesson[]> {
     return this.getMultipleAndMap<Lesson>('/lessonsReservations', this.httpOptions);
   }
 
-  getMySubscription(jwt: string): Observable<Subscription[]> {
-    let headers = this.httpOptions.headers.set("x-access-token", jwt);
-    return this.getMultipleAndMap<Subscription>('/me/subscriptions', {headers});
+  getMySubscription(): Observable<Subscription[]> {
+    this.updateToken();
+    return this.getMultipleAndMap<Subscription>('/me/subscriptions', this.httpOptions);
   }
 
   private getMultipleAndMap<T extends Returnable<T>>(url: string, options: { headers: HttpHeaders }) {
@@ -106,4 +105,7 @@ export class ApiService {
     return !!localStorage.getItem(STORAGE_USER_TOKEN_KEY);
   }
 
+  private updateToken() {
+    this.httpOptions.headers = this.httpOptions.headers.set("x-access-token", this.token);
+  }
 }

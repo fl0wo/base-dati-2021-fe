@@ -44,28 +44,27 @@ export class DayDetailComponent implements OnInit {
               private api:ApiService, public dialog: MatDialog,  private commonService : CommonService) { }
 
   ngOnInit() {
-    if(this.data.slots==null)this.data.slots = [];
-    if(this.data.lessons==null)this.data.lessons = [];
+    if(this.data.slots==null) this.data.slots = [];
+    if(this.data.lessons==null) this.data.lessons = [];
 
-
-    if(this.data.message == 'SCSFL')
+    if(this.data.message == 'SCSFL') {
       this.dialog.open(MessageResponseDialogComponent, {
-        data : {
-          title : "Subscribed successful",
-          message : "Subscribed successful"
+        data: {
+          title: "Subscribed successful",
+          message: "Subscribed successful"
         }
       });
+    }
+
     this.events = new Array<TimelineModel>();
 
     this.data.slots = this.data.slots.sort((a,b)=>{
-      return new Date('1970-01-01T' + a.time_from + 'Z').getTime()
-        -
+      return new Date('1970-01-01T' + a.time_from + 'Z').getTime()-
         new Date('1970-01-01T' + b.time_from + 'Z').getTime()
     })
 
     this.data.lessons = this.data.lessons.sort((a,b)=>{
-      return new Date('1970-01-01T' + a.time + 'Z').getTime()
-        -
+      return new Date('1970-01-01T' + a.time + 'Z').getTime()-
         new Date('1970-01-01T' + b.time + 'Z').getTime()
     })
 
@@ -73,7 +72,7 @@ export class DayDetailComponent implements OnInit {
       this.events.push({
         'date': this.data.date,
         'header': slot.title + " " + slot.time_from + " - "  + slot.time_to,
-        'body': {'description': slot.description + "\nCurrent capacity: " + slot.current_capacity + "/"+ slot.max_capacity
+        'body': {'description': slot.description + "\nCurrent capacity: " + slot.current_reservations + "/"+ slot.max_capacity
                 ,'slot':slot},
         'iconheadercolor':'rgb(255, 25, 38)'
       });
@@ -96,12 +95,9 @@ export class DayDetailComponent implements OnInit {
   }
 
   makeSlotReservation(idSlot: string) {
-        let idUser : string = this.api.user;
-        this.api.makeSlotReservation(idSlot, idUser).subscribe(msg=>{
+        this.api.makeSlotReservation(idSlot).subscribe(msg=>{
           this.sendRefreshMainComponent();
         });
-
-
   }
 
 }
