@@ -1,4 +1,4 @@
-<section class="hero is-fullheight">
+<section class="hero is-fullheight" style="z-index: 3;">
   <div>
     <div class="hero-body">
       <div class="container">
@@ -6,8 +6,11 @@
           <div class="column box is-5-tablet is-4-desktop is-max-widescreen">
 
             <div>
+              <button (click)="this.closeScreen()" class="button" style="float: right;">
+                Go Back
+              </button>
               <h1 class="title">Registration</h1>
-              <h2 class="subtitle">Be carefull</h2>
+              <h2 class="subtitle">Be careful</h2>
             </div>
 
             <input-field
@@ -49,9 +52,6 @@
               <div class="field">
                 <button (click)="this.registerUser()" class="button">
                   Register
-                </button>
-                <button (click)="this.closeScreen()" class="button is-success">
-                  Go Back
                 </button>
               </div>
 

@@ -23,7 +23,7 @@ export class ApiService {
     })
   };
   private LOCAL_HOST = "http://localhost:5000";
-  private REST_API_SERVER = this.LOCAL_HOST;//"http://vps-487579d2.vps.ovh.net:5000";
+  private REST_API_SERVER = "http://vps-487579d2.vps.ovh.net:5000";
 
   constructor(private httpClient: HttpClient) { }
 

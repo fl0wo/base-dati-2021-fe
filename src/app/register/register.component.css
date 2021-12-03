@@ -12,3 +12,17 @@ section{
   left: 50%;
   top: 50%;
 }
+
+.field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.field button {
+  margin: 10px;
+}
+
+input-field {
+  margin: 4px;
+}

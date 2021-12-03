@@ -1,28 +1,34 @@
 <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js">
 
 </script>
-<section class="section is-large">
-  <h1 class="title">Zyzz Gym</h1>
-  <h2 class="subtitle">
-    A simple container to divide your page into <strong>sections</strong>, like the one you're currently reading.
-  </h2>
-  <button (click)="wantLogin=true">Login</button>
-  <button (click)="wantRegister=true">Register</button>
-  <button (click)="this.areaPersonale()">Area Personale</button>
-  <app-login [(user)]="me" [(wantScreen)]="wantLogin" *ngIf="wantLogin"></app-login>
+<div class="page">
+    <section class="section">
 
-  <app-register
-    [(user)]="me" *ngIf="wantRegister"
-    [(wantScreen)]="wantRegister"
-  ></app-register>
+        <h1 class="title">Zyzz Gym</h1>
+        <h2 class="subtitle">
+          A simple container to divide your page into <strong>sections</strong>, like the one you're currently reading.
+        </h2>
+        <div class="buttonsArea">
+          <button (click)="wantLogin=true"><span>Login</span></button>
+          <button (click)="wantRegister=true"><span>Register</span></button>
+          <button (click)="this.areaPersonale()"><span>Area Personale</span></button>
+        </div>
+        <app-login [(user)]="me" [(wantScreen)]="wantLogin" *ngIf="wantLogin"></app-login>
+
+        <app-register
+          [(user)]="me" *ngIf="wantRegister"
+          [(wantScreen)]="wantRegister"
+        ></app-register>
 
 
-  <p>
-    Users :
-    {{users | json}}
-  </p>
+        <p>
+          Users :
+          {{users | json}}
+        </p>
 
-</section>
+
+    </section>
 <app-weight-room-reservation></app-weight-room-reservation>
+</div>
 
 
