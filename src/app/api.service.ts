@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {User} from "../models/user";
-import {MessageReponse, TokenResponse} from "../models/reponse";
+import {User} from "../models/User";
+import {MessageReponse, TokenResponse} from "../models/MessageResponse";
 import {catchError, map, Observable, throwError} from "rxjs";
 import {Slot} from "../models/Slot";
 import {ISlot} from "../models/ISlot";
-import {IResponse} from "../models/Response";
-import {ILesson} from "../models/ILesson";
+import {Response} from "../models/Response";
 import {Lesson} from "../models/Lesson";
+import {Subscription} from "../models/Subscription";
+import {Returnable} from "../models/Returnable";
 
 const STORAGE_USER_TOKEN_KEY = 'user.token';
 const STORAGE_USER_KEY = 'user';
@@ -18,65 +19,79 @@ const STORAGE_USER_KEY = 'user';
 export class ApiService {
 
 
-   httpOptions = {
+  httpOptions = {
     headers: new HttpHeaders({
-      'Access-Control-Allow-Origin':'*',
-      'x-access-token':'authkey'
+      'Access-Control-Allow-Origin': '*',
+      'x-access-token': 'authkey'
     })
   };
   private LOCAL_HOST = "http://localhost:5000";
   private REST_API_SERVER = "http://vps-487579d2.vps.ovh.net:5000";
 
-  constructor(private httpClient: HttpClient) { }
-
-  public getAllUsers(){
-    return this.httpClient.get<any[]>(this.REST_API_SERVER + '/users', this.httpOptions);
+  constructor(private httpClient: HttpClient) {
   }
 
-  public registerUser(user : User) : Observable<MessageReponse> {
-    return this.httpClient.post<MessageReponse>(this.REST_API_SERVER + '/register', user.toRestModel(), this.httpOptions);
+  public getAllUsers(jwt: string) {
+    let headers = this.httpOptions.headers.set("x-access-token", jwt);
+    return this.getMultipleAndMap<User>('/users', {headers});
   }
 
-  public loginUser(user : User) : Observable<MessageReponse> {
+  public registerUser(user: User): Observable<MessageReponse> {
+    return this.post<MessageReponse>('/register', user.toRestModel(), this.httpOptions);
+  }
+
+  public loginUser(user: User): Observable<MessageReponse> {
     let headers = this.httpOptions.headers
       .set("username", user.email)
       .set("password", user.password);
 
-    return this.httpClient.get<IResponse>(this.REST_API_SERVER + '/login', {headers}).pipe(
-      map((e) =>{
+    return this.get<any>('/login', {headers})
+      .pipe(map((e) => {
         localStorage.setItem(STORAGE_USER_KEY, JSON.parse(window.atob(e.data.token.split(".")[1])).id);
         localStorage.setItem(STORAGE_USER_TOKEN_KEY, e.data.token);
-        return MessageReponse.toMessage(e.data.token);})
-    );
+        return MessageReponse.toMessage(e.data.token);
+      }));
   }
 
-  private _objToModel(obj: ISlot): Slot {
-    return new Slot(obj.id, obj.date, obj.time_from, obj.time_to, obj.max_capacity, obj.current_reservations,obj.title,obj.description);
+  getSlots(): Observable<Slot[]> {
+    return this.getMultipleAndMap<Slot>('/slotsReservations', this.httpOptions);
   }
 
-  private _objsToModels(objs: ISlot[]): Slot[] {
-    return objs.map(u => this._objToModel(u));
+  getMe(jwt: string): Observable<User> {
+    let headers = this.httpOptions.headers.set("x-access-token", jwt);
+    return this.getAndMap<User>('/me', {headers});
   }
 
-  /* GET heroes whose name contains search term */
-  getSlots() : Observable<Slot[]>{
-    return this.httpClient.get<IResponse>(this.REST_API_SERVER + '/slotsReservations',this.httpOptions).pipe(
-      map(response => this._objsToModels(response.data))
-    );
+  makeSlotReservation(idSlot: string, idUser: string) {
+    let headers = this.httpOptions.headers.set("x-access-token", this.token);
+    return this.post<any>('/slots/reservation', {'idSlot': idSlot, 'idUser': idUser}, {headers});
   }
 
-  getMe(jwt: string) {
-    let headers = this.httpOptions.headers
-      .set("x-access-token", jwt);
-    return this.httpClient.get<IResponse>(this.REST_API_SERVER + '/me', {headers}).pipe(
-      map(response => response.data)
-    );
+  getLessons(): Observable<Lesson[]> {
+    return this.getMultipleAndMap<Lesson>('/lessonsReservations', this.httpOptions);
   }
 
-  makeSlotReservation(idSlot: string, idUser:string, ){
-    let headers = this.httpOptions.headers
-      .set("x-access-token", this.token);
-      return this.httpClient.post<IResponse>(this.REST_API_SERVER + '/slots/reservation', {'idSlot': idSlot, 'idUser':idUser}, {headers});
+  getMySubscription(jwt: string): Observable<Subscription[]> {
+    let headers = this.httpOptions.headers.set("x-access-token", jwt);
+    return this.getMultipleAndMap<Subscription>('/me/subscriptions', {headers});
+  }
+
+  private getMultipleAndMap<T extends Returnable<T>>(url: string, options: { headers: HttpHeaders }) {
+    return this.get<T[]>(url, options)
+      .pipe(map(response => response.data));
+  }
+
+  private getAndMap<T extends Returnable<T>>(url: string, options: { headers: HttpHeaders }) {
+    return this.get<T>(url, options)
+      .pipe(map(response => response.data));
+  }
+
+  private get<T>(url: string, options: { headers: HttpHeaders }) {
+    return this.httpClient.get<Response<T>>(this.REST_API_SERVER + url, options);
+  }
+
+  private post<T>(url: string, body: any, options: { headers: HttpHeaders }) {
+    return this.httpClient.post<Response<T>>(this.REST_API_SERVER + url, body, options);
   }
 
   get token(): string {
@@ -91,19 +106,4 @@ export class ApiService {
     return !!localStorage.getItem(STORAGE_USER_TOKEN_KEY);
   }
 
-
-  private _objToModelLesson(obj: ILesson): Lesson {
-    return new Lesson(obj.id, obj.date, obj.time, obj.max_participants, obj.current_reservations,obj.course, obj.course_description);
-  }
-
-  private _objsToModelsLesson(objs: ILesson[]): Lesson[] {
-    return objs.map(u => this._objToModelLesson(u));
-  }
-
-  /* GET heroes whose name contains search term */
-  getLessons() : Observable<Lesson[]>{
-    return this.httpClient.get<IResponse>(this.REST_API_SERVER + '/lessonsReservations',this.httpOptions).pipe(
-      map(response => this._objsToModelsLesson(response.data))
-    );
-  }
 }

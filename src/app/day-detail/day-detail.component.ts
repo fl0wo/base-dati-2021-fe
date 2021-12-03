@@ -3,7 +3,7 @@ import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import {Slot} from "../../models/Slot";
 import {TimelineModel} from "ngx-timeline-acracode";
 import {ApiService} from "../api.service";
-import {User} from "../../models/user";
+import {User} from "../../models/User";
 import {MessageResponseDialogComponent} from "../shared-components/message-response-dialog/message-response-dialog.component";
 import {WeightRoomReservationComponent} from "../weight-room-reservation/weight-room-reservation.component";
 import {CommonService} from "../CommonService";

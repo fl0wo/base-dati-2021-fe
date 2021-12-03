@@ -1,0 +1,6 @@
+.horizontal-container{
+  display:flex;
+}
+.zoomed-map{
+  flex-grow:1;
+}

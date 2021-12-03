@@ -1,4 +1,6 @@
-export class Slot{
+import {Returnable} from "./Returnable";
+
+export class Slot implements Returnable<Slot>{
 
   constructor( public id : string,
                public date : Date,
@@ -12,6 +14,10 @@ export class Slot{
 
   get info(): string {
     return `#${this.id} - ${this.time_from.getTime()} - ${this.time_to.getTime()} - ${this.max_capacity }`
+  }
+
+  parse(r: Response): Slot {
+    return this;
   }
 
 }

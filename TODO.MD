@@ -32,9 +32,10 @@ Me as CUSTOMER :
 
 #Area privata
   - dati/anagrafica utente,
-  - mostrare abbonamento di quel utente(popolarlo a mano nel db)
-  - -Se avanza tempo aggiungere pulsante "inserisci abbonamento" che aggiunge un nuovo utente e un nuovo abbonamento (solo il manager puo farlo)
+  - Aggiungere pulsante "inserisci abbonamento" che aggiunge un nuovo utente e un nuovo abbonamento (solo il manager puo farlo)
+  - mostrare abbonamento di quel utente
   - mostrare le transazioni che ha fatto quell utente (popolarlo a mano nel db)
   - Mostrare lista di prenotazioni sia weightroom sia lezioni di quell utente, per farlo mi sa che bisogna fare un:
-Reservations inner join WeightRoomReservations UNION ALL Reservations inner join LessonReservations
+Reservations inner join WeightRoomReservations
+   UNION ALL Reservations inner join LessonReservations
 

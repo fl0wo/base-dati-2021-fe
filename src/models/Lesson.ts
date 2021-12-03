@@ -1,4 +1,6 @@
-export class Lesson{
+import {Returnable} from "./Returnable";
+
+export class Lesson implements Returnable<Lesson>{
 
   constructor( public id : string,
                public date : Date,
@@ -11,6 +13,10 @@ export class Lesson{
 
   get info(): string {
     return `#${this.id} - ${this.time.getTime()} - ${this.max_participants }`
+  }
+
+  parse(r: Response): Lesson {
+    return this;
   }
 
 }

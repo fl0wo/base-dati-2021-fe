@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {User} from "../../models/user";
+import {User} from "../../models/User";
 import {faAddressBook, faKey, faPen, faSubscript} from "@fortawesome/free-solid-svg-icons";
 import {ApiService} from "../api.service";
 import {MatDialog} from "@angular/material/dialog";
