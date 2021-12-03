@@ -1,72 +1,75 @@
-<div>
+<div class="container is-fluid">
+  <div class="notification $white-ter">
+    <div>
 
-  <label class="checkbox">
-    <input type="checkbox" [defaultChecked]="seeSlots"  [checked]="seeSlots" (change)="seeSlots = !seeSlots">
-    See Slots
-  </label>
-  <br>
-  <label class="checkbox">
-    <input type="checkbox" [defaultChecked]="seeLessons" [checked]="seeLessons" (change)="seeLessons = !seeLessons">
-    See Lezioni
-  </label>
-</div>
+      <label class="checkbox">
+        <input type="checkbox" [defaultChecked]="seeSlots"  [checked]="seeSlots" (change)="seeSlots = !seeSlots">
+        See Slots
+      </label>
+      <br>
+      <label class="checkbox">
+        <input type="checkbox" [defaultChecked]="seeLessons" [checked]="seeLessons" (change)="seeLessons = !seeLessons">
+        See Lezioni
+      </label>
+    </div>
 
-<div>
-  <div>
-    {{displayMonth}}
-  </div>
-  <div>
-    <input type="button" (click)="setCurrentMonth()" value="today" />
-    <input type="button" (click)="decreaseMonth()" value="-" />
-    <input type="button" (click)="increaseMonth()" value="+" />
-  </div>
-</div>
-
-<table class='calendar-table' *ngIf="calendar">
-  <thead>
-  <tr>
-    <th>Monday</th>
-    <th>Tuesday</th>
-    <th>Wednesday</th>
-    <th>Thursday</th>
-    <th>Friday</th>
-    <th>Saturday</th>
-    <th>Sunday</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let week of calendar | chunk: 7; let i = index">
-    <td
-      class="calendar-day"
-        [ngClass]="{'past-date': day.isPastDate, 'today': day.isToday}"
-        *ngFor="let day of week; let j = index">
-      <div class="calendar-day-header" [ngClass]="{'blue-date': day.isToday}">
-        <ng-container *ngIf="seeSlots">
-          <div *ngFor="let slot of this.getSlotsOf(day.date)" (click)="this.showSlotsOf(day.date)">
-            {{slot.time_from}} - {{slot.time_to}}
-          </div>
-        </ng-container>
-        <ng-container *ngIf="seeLessons">
-          <div *ngFor="let lesson of this.getLessonsOf(day.date)" (click)="this.showLessonsOfDay(day.date)">
-            {{lesson.time}} - {{lesson.course}}
-          </div>
-        </ng-container>
-
-        <strong>{{day.date.getDate()}}</strong>
-        <strong *ngIf="day.isToday || (i==0 && j==0) || (day.date.getDate() == 1)"> {{monthNames[day.date.getMonth()]}}</strong>
-
+    <div>
+      <div>
+        {{displayMonth}}
       </div>
-    </td>
-  </tr>
-  </tbody>
-</table>
+      <div>
+        <input type="button" (click)="setCurrentMonth()" value="today" />
+        <input type="button" (click)="decreaseMonth()" value="-" />
+        <input type="button" (click)="increaseMonth()" value="+" />
+      </div>
+    </div>
 
-<div>
-  <li *ngFor="let slot of slots">
-         <div  style="font-size: 20px;text-align: center;" (click)="openSlotDetail(slot)"> {{slot | json}}
+    <table class='calendar-table' *ngIf="calendar">
+      <thead>
+      <tr>
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wednesday</th>
+        <th>Thursday</th>
+        <th>Friday</th>
+        <th>Saturday</th>
+        <th>Sunday</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let week of calendar | chunk: 7; let i = index">
+        <td
+          class="calendar-day"
+            [ngClass]="{'past-date': day.isPastDate, 'today': day.isToday}"
+            *ngFor="let day of week; let j = index">
+          <div class="calendar-day-header" [ngClass]="{'blue-date': day.isToday}">
+            <ng-container *ngIf="seeSlots">
+              <div *ngFor="let slot of this.getSlotsOf(day.date)" (click)="this.showSlotsOf(day.date)">
+                {{slot.time_from}} - {{slot.time_to}}
+              </div>
+            </ng-container>
+            <ng-container *ngIf="seeLessons">
+              <div *ngFor="let lesson of this.getLessonsOf(day.date)" (click)="this.showLessonsOfDay(day.date)">
+                {{lesson.time}} - {{lesson.course}}
+              </div>
+            </ng-container>
+
+            <strong>{{day.date.getDate()}}</strong>
+            <strong *ngIf="day.isToday || (i==0 && j==0) || (day.date.getDate() == 1)"> {{monthNames[day.date.getMonth()]}}</strong>
+
           </div>
-  </li>
+        </td>
+      </tr>
+      </tbody>
+    </table>
 
-      <app-slot-detail *ngIf="loadSlotDetail" [childSlot]="selectedSlot"></app-slot-detail>
+    <div>
+      <li *ngFor="let slot of slots">
+             <div  style="font-size: 20px;text-align: center;" (click)="openSlotDetail(slot)"> {{slot | json}}
+              </div>
+      </li>
+
+          <app-slot-detail *ngIf="loadSlotDetail" [childSlot]="selectedSlot"></app-slot-detail>
+    </div>
+  </div>
 </div>
-
