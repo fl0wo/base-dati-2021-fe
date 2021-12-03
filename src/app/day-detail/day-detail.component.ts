@@ -6,6 +6,8 @@ import {ApiService} from "../api.service";
 import {User} from "../../models/user";
 import {MessageResponseDialogComponent} from "../shared-components/message-response-dialog/message-response-dialog.component";
 import {WeightRoomReservationComponent} from "../weight-room-reservation/weight-room-reservation.component";
+import {CommonService} from "../CommonService";
+import {Lesson} from "../../models/Lesson";
 
 @Component({
   selector: 'app-day-detail',
@@ -34,17 +36,37 @@ export class DayDetailComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA)
               public data: {
-    date:Date,
-    slots:Slot[]
-  }, private api:ApiService, public dialog: MatDialog) { }
+                date:Date,
+                slots:Slot[],
+                message: string,
+                lessons: Lesson[]
+              },
+              private api:ApiService, public dialog: MatDialog,  private commonService : CommonService) { }
 
   ngOnInit() {
+    if(this.data.slots==null)this.data.slots = [];
+    if(this.data.lessons==null)this.data.lessons = [];
+
+
+    if(this.data.message == 'SCSFL')
+      this.dialog.open(MessageResponseDialogComponent, {
+        data : {
+          title : "Subscribed successful",
+          message : "Subscribed successful"
+        }
+      });
     this.events = new Array<TimelineModel>();
 
     this.data.slots = this.data.slots.sort((a,b)=>{
       return new Date('1970-01-01T' + a.time_from + 'Z').getTime()
         -
         new Date('1970-01-01T' + b.time_from + 'Z').getTime()
+    })
+
+    this.data.lessons = this.data.lessons.sort((a,b)=>{
+      return new Date('1970-01-01T' + a.time + 'Z').getTime()
+        -
+        new Date('1970-01-01T' + b.time + 'Z').getTime()
     })
 
     this.data.slots.forEach(slot=>{
@@ -56,20 +78,29 @@ export class DayDetailComponent implements OnInit {
         'iconheadercolor':'rgb(255, 25, 38)'
       });
     })
+
+    this.data.lessons.forEach(lesson=>{
+      this.events.push({
+        'date': this.data.date,
+        'header': lesson.course + " " + lesson.time,
+        'body': {'description': lesson.course_description + "\nCurrent capacity: " + lesson.current_reservations + "/"+ lesson.max_participants
+          ,'slot':lesson},
+        'iconheadercolor':'rgb(255, 25, 38)'
+      });
+    })
    }
 
+  sendRefreshMainComponent(): void {
+    // send message to subscribers via observable subject
+    this.commonService.sendUpdate('updateSlots', this.data.date);
+  }
 
   makeSlotReservation(idSlot: string) {
-
         let idUser : string = this.api.user;
         this.api.makeSlotReservation(idSlot, idUser).subscribe(msg=>{
-          this.dialog.open(MessageResponseDialogComponent, {
-            data : {
-              title : "New slots reservation went:",
-              message : msg.message
-            }
-          });
+          this.sendRefreshMainComponent();
         });
+
 
   }
 

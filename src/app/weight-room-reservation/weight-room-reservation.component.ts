@@ -4,6 +4,9 @@ import {Slot} from "../../models/Slot";
 import {MessageResponseDialogComponent} from "../shared-components/message-response-dialog/message-response-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {DayDetailComponent} from "../day-detail/day-detail.component";
+import {CommonService} from "../CommonService";
+import {Subscription} from "rxjs";
+import {Lesson} from "../../models/Lesson";
 
 export class CalendarDay {
   public date: Date;
@@ -59,13 +62,35 @@ export class WeightRoomReservationComponent implements OnInit {
   public selectedSlot!: Slot;
 
   public slots: Slot[] = [];
+  private lessons: Lesson[] = [];
 
-  constructor(private api:ApiService,public dialog: MatDialog) {
+  messageReceived: string = "";
+  private subscriptionName: Subscription;
+  seeSlots: boolean = true;
+  seeLessons: boolean = true;
+
+  constructor(private api:ApiService, public dialog: MatDialog, private commonService : CommonService) {
+    // subscribe to sender component messages
+    this.subscriptionName = this.commonService.getUpdate().subscribe((message) => { //message contains the data sent from service
+      this.messageReceived = message.text;
+      let date = message.date;
+      console.log((this.messageReceived))
+      if((this.messageReceived) == 'updateSlots')
+        this.fillCalendarWithSlots2(()=>{
+          this.showSlotsOf2(date)
+        });
+
+    });
+
+  }
+  ngOnDestroy() { // It's a good practice to unsubscribe to ensure no memory leaks
+    this.subscriptionName.unsubscribe();
   }
 
   ngOnInit(): void {
     this.generateCalendarDays(this.monthIndex);
     this.fillCalendarWithSlots();
+    this.fillCalendarWithLessons();
   }
 
   private generateCalendarDays(monthIndex: number): void {
@@ -121,9 +146,24 @@ export class WeightRoomReservationComponent implements OnInit {
     this.generateCalendarDays(this.monthIndex);
   }
 
+  public fillCalendarWithLessons() {
+    this.api.getLessons().subscribe((lessonArray) => {
+      this.lessons=lessonArray;
+    });
+  }
+
   public fillCalendarWithSlots() {
     this.api.getSlots().subscribe((slotArray) => {
       this.slots=slotArray;
+    });
+  }
+
+  public fillCalendarWithSlots2(f: { (): void; (): void; } | undefined) {
+    this.api.getSlots().subscribe((slotArray) => {
+      this.slots=slotArray;
+      if (f) {
+        f();
+      }
     });
   }
 
@@ -136,11 +176,42 @@ export class WeightRoomReservationComponent implements OnInit {
     return this.slots.filter(slot=> new Date(slot.date).getTime() == new Date(date).getTime());
   }
 
+  getLessonsOf(date: Date) : Lesson[] {
+    return this.lessons.filter(slot=> new Date(slot.date).getTime() == new Date(date).getTime());
+  }
+
+
+  showLessonsOfDay(date: Date) {
+    if(this.seeLessons) {
+      this.dialog.closeAll();
+      this.dialog.open(DayDetailComponent, {
+        data: {
+          date: date,
+          lessons: this.getLessonsOf(date)
+        }
+      });
+    }
+  }
+
   showSlotsOf(date: Date) {
+    if(this.seeSlots) {
+      this.dialog.closeAll();
+      this.dialog.open(DayDetailComponent, {
+        data: {
+          date: date,
+          slots: this.getSlotsOf(date)
+        }
+      });
+    }
+  }
+
+  showSlotsOf2(date: Date) {
+    this.dialog.closeAll();
     this.dialog.open(DayDetailComponent,{
       data : {
         date : date,
-        slots : this.getSlotsOf(date)
+        slots : this.getSlotsOf(date),
+        message: 'SCSFL'
       }
     });
   }

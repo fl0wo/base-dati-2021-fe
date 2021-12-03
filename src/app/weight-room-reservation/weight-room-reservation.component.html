@@ -1,4 +1,17 @@
 <div>
+
+  <label class="checkbox">
+    <input type="checkbox" [defaultChecked]="seeSlots"  [checked]="seeSlots" (change)="seeSlots = !seeSlots">
+    See Slots
+  </label>
+  <br>
+  <label class="checkbox">
+    <input type="checkbox" [defaultChecked]="seeLessons" [checked]="seeLessons" (change)="seeLessons = !seeLessons">
+    See Lezioni
+  </label>
+</div>
+
+<div>
   <div>
     {{displayMonth}}
   </div>
@@ -26,13 +39,18 @@
     <td
       class="calendar-day"
         [ngClass]="{'past-date': day.isPastDate, 'today': day.isToday}"
-        *ngFor="let day of week; let j = index"
-       (click)="this.showSlotsOf(day.date)">
+        *ngFor="let day of week; let j = index">
       <div class="calendar-day-header" [ngClass]="{'blue-date': day.isToday}">
-
-        <div *ngFor="let slot of this.getSlotsOf(day.date)">
-          {{slot.time_from}} - {{slot.time_to}}
-        </div>
+        <ng-container *ngIf="seeSlots">
+          <div *ngFor="let slot of this.getSlotsOf(day.date)" (click)="this.showSlotsOf(day.date)">
+            {{slot.time_from}} - {{slot.time_to}}
+          </div>
+        </ng-container>
+        <ng-container *ngIf="seeLessons">
+          <div *ngFor="let lesson of this.getLessonsOf(day.date)" (click)="this.showLessonsOfDay(day.date)">
+            {{lesson.time}} - {{lesson.course}}
+          </div>
+        </ng-container>
 
         <strong>{{day.date.getDate()}}</strong>
         <strong *ngIf="day.isToday || (i==0 && j==0) || (day.date.getDate() == 1)"> {{monthNames[day.date.getMonth()]}}</strong>

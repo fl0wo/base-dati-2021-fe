@@ -6,6 +6,8 @@ import {catchError, map, Observable, throwError} from "rxjs";
 import {Slot} from "../models/Slot";
 import {ISlot} from "../models/ISlot";
 import {IResponse} from "../models/Response";
+import {ILesson} from "../models/ILesson";
+import {Lesson} from "../models/Lesson";
 
 const STORAGE_USER_TOKEN_KEY = 'user.token';
 const STORAGE_USER_KEY = 'user';
@@ -90,4 +92,18 @@ export class ApiService {
   }
 
 
+  private _objToModelLesson(obj: ILesson): Lesson {
+    return new Lesson(obj.id, obj.date, obj.time, obj.max_participants, obj.current_reservations,obj.course, obj.course_description);
+  }
+
+  private _objsToModelsLesson(objs: ILesson[]): Lesson[] {
+    return objs.map(u => this._objToModelLesson(u));
+  }
+
+  /* GET heroes whose name contains search term */
+  getLessons() : Observable<Lesson[]>{
+    return this.httpClient.get<IResponse>(this.REST_API_SERVER + '/lessonsReservations',this.httpOptions).pipe(
+      map(response => this._objsToModelsLesson(response.data))
+    );
+  }
 }
