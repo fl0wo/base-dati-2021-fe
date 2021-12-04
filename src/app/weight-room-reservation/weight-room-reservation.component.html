@@ -1,6 +1,7 @@
 
 <div class="container is-fluid">
   <div class="notification">
+    {{me | json}}
     <button (click)="wantAddSlot=true" *ngIf="me.role=='manager'" class="button is-success">Add Slot</button>
     <div style="width: 40%" class="center">
       <app-slot-detail  *ngIf="wantAddSlot" (wantScreen)="closeAddSlot($event)"></app-slot-detail>
