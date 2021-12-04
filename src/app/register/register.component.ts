@@ -4,6 +4,7 @@ import { faAddressBook, faKey, faSubscript, faPen } from '@fortawesome/free-soli
 import {ApiService} from "../api.service";
 import {MessageResponseDialogComponent} from "../shared-components/message-response-dialog/message-response-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {MessageReponse} from "../../models/MessageResponse";
 
 @Component({
   selector: 'app-register',
@@ -29,15 +30,30 @@ export class RegisterComponent {
 
   registerUser() {
     this.api.registerUser(this.user).subscribe((msg)=>{
+      if(msg.status==200){
+        this.registerSuccess(msg);
+      } else {
+        this.registerFailed(msg);
+      }
+    });
+  }
 
-      this.dialog.open(MessageResponseDialogComponent, {
-        data : {
-          title : "Registration completed",
-          message : msg.message
-        }
-      });
+  private registerSuccess(msg: MessageReponse) {
+    this.dialog.open(MessageResponseDialogComponent, {
+      data: {
+        title: "Registration completed",
+        message: msg.message
+      }
+    });
+    this.closeScreen()
+  }
 
-      this.closeScreen()
+  private registerFailed(msg: MessageReponse) {
+    this.dialog.open(MessageResponseDialogComponent, {
+      data: {
+        title: "Registration failed",
+        message: msg.message
+      }
     });
   }
 
@@ -45,4 +61,6 @@ export class RegisterComponent {
     this.wantScreen=false;
     this.wantScreenChange.next(this.wantScreen);
   }
+
+
 }

@@ -35,7 +35,13 @@ export class ApiService {
   }
 
   public registerUser(user: User): Observable<MessageReponse> {
-    return this.post<MessageReponse>('/register', user.toRestModel(), this.httpOptions);
+    return this.post<any>('/register', user.toRestModel(), this.httpOptions)
+      .pipe(map((e) => {
+        if (e.status==200) {
+          return MessageReponse.toMessage(e.data.token).withStatus(200);
+        }
+        return MessageReponse.toMessage(e.message).withStatus(400);
+      }));
   }
 
   public loginUser(user: User): Observable<MessageReponse> {
@@ -43,11 +49,15 @@ export class ApiService {
       .set("username", user.email)
       .set("password", user.password);
 
-    return this.get<any>('/login', {headers})
+    return this
+      .get<any>('/login', {headers})
       .pipe(map((e) => {
-        localStorage.setItem(STORAGE_USER_KEY, JSON.parse(window.atob(e.data.token.split(".")[1])).id);
-        localStorage.setItem(STORAGE_USER_TOKEN_KEY, e.data.token);
-        return MessageReponse.toMessage(e.data.token);
+        if (e.status==200) {
+          localStorage.setItem(STORAGE_USER_KEY, JSON.parse(window.atob(e.data.token.split(".")[1])).id);
+          localStorage.setItem(STORAGE_USER_TOKEN_KEY, e.data.token);
+          return MessageReponse.toMessage(e.data.token).withStatus(200);
+        }
+        return MessageReponse.toMessage(e.message).withStatus(400);
       }));
   }
 

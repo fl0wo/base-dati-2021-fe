@@ -5,6 +5,7 @@ import {ApiService} from "../api.service";
 import {MatDialog} from "@angular/material/dialog";
 import {MessageResponseDialogComponent} from "../shared-components/message-response-dialog/message-response-dialog.component";
 import {Router} from "@angular/router";
+import {MessageReponse} from "../../models/MessageResponse";
 
 @Component({
   selector: 'app-login',
@@ -28,15 +29,32 @@ export class LoginComponent implements OnInit {
 
   loginUser() {
     this.api.loginUser(this.user).subscribe((msg)=>{
-      this.user.token = msg.message;
-      this.dialog.open(MessageResponseDialogComponent, {
-        data : {
-          title : "Login completed",
-          message : msg.message
-        }
-      });
-      this.closeScreen();
-      window.location.reload();
+      if(msg.status==200) {
+        this.loginSuccess(msg);
+      } else {
+        this.loginFailed(msg);
+      }
+    });
+  }
+
+  private loginSuccess(msg: MessageReponse) {
+    this.user.token = msg.message;
+    this.dialog.open(MessageResponseDialogComponent, {
+      data: {
+        title: "Login completed",
+        message: msg.message
+      }
+    });
+    this.closeScreen();
+    window.location.reload();
+  }
+
+  private loginFailed(msg: MessageReponse) {
+    this.dialog.open(MessageResponseDialogComponent, {
+      data: {
+        title: "Login failed",
+        message: msg.message
+      }
     });
   }
 
@@ -47,5 +65,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
 
 }
