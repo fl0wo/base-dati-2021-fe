@@ -52,7 +52,7 @@ export class ApiService {
   }
 
   getSlots(): Observable<Slot[]> {
-    return this.getMultipleAndMap<Slot>('/slotsReservations', this.httpOptions);
+    return this.getMultipleAndMap<Slot>('/slots/reservations', this.httpOptions);
   }
 
   getMe(): Observable<User> {
@@ -67,7 +67,7 @@ export class ApiService {
       "fiscal_code": meUpdate.fiscal_code,
       "phone": meUpdate.phone,
     }
-    return this.partialUpdate<MessageReponse>('/me', payload,this.httpOptions);
+    return this.post<MessageReponse>('/me', payload,this.httpOptions);
   }
 
   makeSlotReservation(idSlot: string) {
@@ -77,12 +77,12 @@ export class ApiService {
   }
 
   getLessons(): Observable<Lesson[]> {
-    return this.getMultipleAndMap<Lesson>('/lessonsReservations', this.httpOptions);
+    return this.getMultipleAndMap<Lesson>('/lessons/reservations', this.httpOptions);
   }
 
   getMySubscription(): Observable<Subscription[]> {
     this.updateToken();
-    return this.getMultipleAndMap<Subscription>('/me/subscriptions', this.httpOptions);
+    return this.getMultipleAndMap<Subscription>('/me/reservations', this.httpOptions);
   }
 
   private getMultipleAndMap<T extends Returnable<T>>(url: string, options: { headers: HttpHeaders }) {
@@ -101,10 +101,6 @@ export class ApiService {
 
   private post<T>(url: string, body: any, options: { headers: HttpHeaders }) {
     return this.httpClient.post<Response<T>>(this.REST_API_SERVER + url, body, options);
-  }
-
-  private partialUpdate<T>(url: string, body: any, options: { headers: HttpHeaders }) {
-    return this.httpClient.patch<Response<T>>(this.REST_API_SERVER + url, body, options);
   }
 
   get token(): string {
