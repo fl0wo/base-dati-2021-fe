@@ -74,10 +74,13 @@
           </input-field>
         </div>
 
-        <button [ngClass]="this.showEditPanel ? 'button is-danger' :'button is-warning'"
-                (click)="this.flipEditPanel()">
-          {{this.showEditPanel ? "Submit Edit" : "Edit profile"}}
-        </button>
+        <div class="bigButton">
+          <button [ngClass]="this.showEditPanel ? 'button is-danger' :'button is-warning'"
+                  (click)="this.flipEditPanel()" style="text-align:center; margin-top: 5px; ">
+            {{this.showEditPanel ? "Submit Edit" : "Edit profile"}}
+          </button>
+        </div>
+
 
       </div>
     </div>

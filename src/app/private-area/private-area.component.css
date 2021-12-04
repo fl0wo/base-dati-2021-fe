@@ -4,3 +4,13 @@
 .zoomed-map{
   flex-grow:1;
 }
+
+.bigButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+input-field {
+  margin: 10px;
+}

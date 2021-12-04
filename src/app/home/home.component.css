@@ -11,6 +11,10 @@
   background: linear-gradient(#e66465, #9198e5);  /* Green background with 30% opacity */
 }
 
+.section {
+  padding-bottom: 5px;
+}
+
 button {
   display: inline-block;
   width: 200px;
@@ -26,6 +30,8 @@ button {
   text-align: center;
   position: relative;
   transition: all .35s;
+  border-radius: 25px;
+  cursor: pointer;
 }
 
 button:after{
@@ -37,14 +43,17 @@ button:after{
   height: 100%;
   background: #a34549;
   transition: all .35s;
+  border-radius: 25px;
 }
 
 button:hover{
   color: #fff;
+  border-radius: 25px;
 }
 
 button:hover:after{
   width: 100%;
+  border-radius: 25px;
 }
 
 .buttonsArea {

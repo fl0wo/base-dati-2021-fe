@@ -1,26 +1,28 @@
 .calendar-table {
-  border-collapse: collapse;
   width: 100%;
   max-width: 100%;
-  margin-bottom: 1rem;
-  border: 1px solid #dee2e6;
-  background-color: #fff;
+  margin-top: 1rem;
+  background-color: #ffffff;
+  background-image: linear-gradient(315deg, #ffffff 0%, #d7e1ec 74%);
+  border-radius: 25px;
+  border: 2px solid #bfc6e3;
+  border-collapse: separate;
 }
 
 .calendar-table thead th {
   vertical-align: bottom;
-  border-bottom: 2px solid #dee2e6;
   width: 14.2%;
+  text-align: center;
+  border-top: none;
 }
 
-.calendar-table td, .calendar-table th {
-  border: 1px solid #dee2e6;
+.calendar-table td:first-child, .calendar-table th:first-child {
+  border-left: none;
 }
 
 .calendar-table td, .calendar-table th {
   padding: .75rem;
   vertical-align: top;
-  border-top: 1px solid #dee2e6;
 }
 
 .calendar-day {
@@ -37,13 +39,91 @@
 }
 
 .calendar-day.past-date {
-  background-color: rgb(248, 248, 248);
+  background: #a7cccb
+
 }
 
 .calendar-day:hover {
-  background-color: rgb(248, 248, 248);
+  background-color: ghostwhite;
+
 }
 
 .blue-date {
   color: rgb(16, 110, 190);
 }
+
+.checks {
+  float: right;
+  margin-top: 10px;
+}
+
+.checks label {
+  font-size: 20px;
+}
+
+
+.notification {
+  background-color: #f3e6e8;
+  background-image: linear-gradient(315deg, #f3e6e8 0%, #d5d0e5 74%);
+}
+
+
+.buttons input {
+ background: whitesmoke;
+ backface-visibility: hidden;
+ border-radius: .375rem;
+ border: 2px solid #333;
+ box-sizing: border-box;
+ color: #212121;
+ cursor: pointer;
+ display: inline-block;
+ font-family: Circular,Helvetica,sans-serif;
+ font-size: 1.125rem;
+ font-weight: 500;
+ letter-spacing: -.01em;
+ line-height: 1.3;
+ padding: .875rem 1.125rem;
+ text-align: left;
+ text-decoration: none;
+ transform: translateZ(0) scale(1);
+ transition: transform .2s;
+ user-select: none;
+ -webkit-user-select: none;
+ touch-action: manipulation;
+  margin-right: 8px;
+}
+
+.buttons input:not(:disabled):hover {
+  transform: scale(1.05);
+}
+
+.buttons input:not(:disabled):hover:active {
+  transform: scale(1.05) translateY(.125rem);
+}
+
+.buttons input:focus {
+  outline: 0 solid transparent;
+}
+
+.buttons input:focus:before {
+  content: "";
+  left: calc(-1*.375rem);
+  pointer-events: none;
+  position: absolute;
+  top: calc(-1*.375rem);
+  transition: border-radius;
+  user-select: none;
+}
+
+.buttons input:focus:not(:focus-visible) {
+  outline: 0 solid transparent;
+}
+
+.buttons input:focus:not(:focus-visible):before {
+  border-width: 0;
+}
+
+.buttons input:not(:disabled):active {
+  transform: translateY(.125rem);
+}
+
