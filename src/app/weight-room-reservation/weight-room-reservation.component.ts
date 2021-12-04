@@ -224,7 +224,8 @@ export class WeightRoomReservationComponent implements OnInit {
       data : {
         date : date,
         slots : this.getSlotsOf(date),
-        message: 'SCSFL'
+        message: 'SCSFL',
+        user: this.me
       }
     });
   }

@@ -17,7 +17,7 @@ export class User implements Returnable<User>{
       return {
         "name" : this.name,
         "surname" : this.surname,
-        "basic" : this.email,
+        "email" : this.email,
         "password" : this.password
       }
     }
