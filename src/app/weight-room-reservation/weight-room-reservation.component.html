@@ -1,5 +1,8 @@
 <div class="container is-fluid">
   <div class="notification $white-ter">
+    {{me|json}}
+    <button (click)="wantAddSlot=true" *ngIf="me.role=='trainer'" class="button is-success">Add Slot</button>
+    <app-slot-detail *ngIf="wantAddSlot" (wantScreen)="closeAddSlot($event)"></app-slot-detail>
     <div>
 
       <label class="checkbox">
@@ -68,8 +71,6 @@
              <div  style="font-size: 20px;text-align: center;" (click)="openSlotDetail(slot)"> {{slot | json}}
               </div>
       </li>
-
-          <app-slot-detail *ngIf="loadSlotDetail" [childSlot]="selectedSlot"></app-slot-detail>
     </div>
   </div>
 </div>

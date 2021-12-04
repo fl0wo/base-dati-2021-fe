@@ -4,6 +4,7 @@ import {faAddressBook, faKey, faPen, faSubscript} from "@fortawesome/free-solid-
 import {ApiService} from "../api.service";
 import {MatDialog} from "@angular/material/dialog";
 import {MessageResponseDialogComponent} from "../shared-components/message-response-dialog/message-response-dialog.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -23,19 +24,19 @@ export class LoginComponent implements OnInit {
     pwd : faKey
   }
 
-  constructor(private api:ApiService,public dialog: MatDialog) { }
+  constructor(private api:ApiService,public dialog: MatDialog, public router: Router) { }
 
   loginUser() {
     this.api.loginUser(this.user).subscribe((msg)=>{
       this.user.token = msg.message;
       this.dialog.open(MessageResponseDialogComponent, {
         data : {
-          title : "Registration completed",
+          title : "Login completed",
           message : msg.message
         }
       });
-
-      this.closeScreen()
+      this.closeScreen();
+      window.location.reload();
     });
   }
 

@@ -7,6 +7,7 @@ import {DayDetailComponent} from "../day-detail/day-detail.component";
 import {CommonService} from "../CommonService";
 import {Subscription} from "rxjs";
 import {Lesson} from "../../models/Lesson";
+import {User} from "../../models/User";
 
 export class CalendarDay {
   public date: Date;
@@ -69,6 +70,9 @@ export class WeightRoomReservationComponent implements OnInit {
   seeSlots: boolean = true;
   seeLessons: boolean = true;
 
+  me:User = new User();
+  wantAddSlot: boolean=false;
+
   constructor(private api:ApiService, public dialog: MatDialog, private commonService : CommonService) {
     // subscribe to sender component messages
     this.subscriptionName = this.commonService.getUpdate().subscribe((message) => { //message contains the data sent from service
@@ -91,6 +95,13 @@ export class WeightRoomReservationComponent implements OnInit {
     this.generateCalendarDays(this.monthIndex);
     this.fillCalendarWithSlots();
     this.fillCalendarWithLessons();
+    this.api.getMe().subscribe(user=>{
+      this.me = user;
+    });
+  }
+
+  public closeAddSlot(res: boolean) {
+    this.wantAddSlot = res;
   }
 
   private generateCalendarDays(monthIndex: number): void {
@@ -187,7 +198,8 @@ export class WeightRoomReservationComponent implements OnInit {
       this.dialog.open(DayDetailComponent, {
         data: {
           date: date,
-          lessons: this.getLessonsOf(date)
+          lessons: this.getLessonsOf(date),
+          user: this.me
         }
       });
     }
@@ -199,7 +211,8 @@ export class WeightRoomReservationComponent implements OnInit {
       this.dialog.open(DayDetailComponent, {
         data: {
           date: date,
-          slots: this.getSlotsOf(date)
+          slots: this.getSlotsOf(date),
+          user: this.me
         }
       });
     }

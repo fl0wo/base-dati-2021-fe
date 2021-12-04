@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Slot} from "../../models/Slot";
 
 @Component({
@@ -8,11 +8,27 @@ import {Slot} from "../../models/Slot";
 })
 export class SlotDetailComponent implements OnInit {
 
-  @Input() childSlot!: Slot;
+  @Output() wantScreen = new EventEmitter<boolean>();
+
+  body : any = {
+    date : "",
+    time_from : "",
+    time_to : "",
+    max_capacity : "",
+    title : "",
+    description : "",
+}
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  closeScreen() {
+    this.wantScreen.emit(false);
+  }
+
+  saveSlot() {
+
+  }
 }

@@ -33,13 +33,17 @@ export class DayDetailComponent implements OnInit {
   ];
 
   events: any;
-
+  commonData: any ={
+    current_reservation:0,
+    max_capacity: 0
+  };
   constructor(@Inject(MAT_DIALOG_DATA)
               public data: {
                 date:Date,
                 slots:Slot[],
                 message: string,
-                lessons: Lesson[]
+                lessons: Lesson[],
+                user: User
               },
               private api:ApiService, public dialog: MatDialog,  private commonService : CommonService) { }
 
