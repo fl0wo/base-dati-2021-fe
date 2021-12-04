@@ -14,6 +14,7 @@ export class PrivateAreaComponent implements OnInit {
 
   me:User = new User();
   meUpdate: User = new User();
+  allUsers: User[] = []
   showEditPanel:boolean = false;
   subscriptions:Subscription[] = [];
 
@@ -32,6 +33,10 @@ export class PrivateAreaComponent implements OnInit {
       this.api.getMySubscription().subscribe(subs=>{
         this.subscriptions=subs;
       });
+
+      this.api.getAllUsers().subscribe( (users:any[]) =>{
+        this.allUsers = users;
+      })
   }
 
   getToday() {

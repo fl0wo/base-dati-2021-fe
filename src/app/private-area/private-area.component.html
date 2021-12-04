@@ -95,6 +95,11 @@
       </ul>
     </div>
 
+    <div *ngIf="this.me.role=='admin'">
+      All Users :
+      {{this.allUsers | json}}
+    </div>
+
   </div>
 </div>
 

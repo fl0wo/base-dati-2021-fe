@@ -18,13 +18,9 @@ export class HomeComponent implements OnInit {
   constructor(private api: ApiService,public router: Router) { }
 
   ngOnInit(): void {
-    /*
-    this.api.getAllUsers("").subscribe( (users:any[]) =>{
-      this.users = users;
-    })
 
-     */
   }
+
 
   areaPersonale(){
     this.router.navigateByUrl("/me",{
