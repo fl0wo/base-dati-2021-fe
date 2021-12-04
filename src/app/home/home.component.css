@@ -64,3 +64,17 @@ button span{
   position: relative;
   z-index: 2;
 }
+
+.bg {
+  /* The image used */
+  background-image: url("../../assets/imgs/header1.jpg");
+  /* Full height */
+  height: 50%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
