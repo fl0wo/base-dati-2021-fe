@@ -60,6 +60,16 @@ export class ApiService {
     return this.getAndMap<User>('/me', this.httpOptions);
   }
 
+  updateUser(meUpdate: User) {
+    this.updateToken();
+    const payload = {
+      "birth_date" : meUpdate.birth_date,
+      "fiscal_code": meUpdate.fiscal_code,
+      "phone": meUpdate.phone,
+    }
+    return this.partialUpdate<MessageReponse>('/me', payload,this.httpOptions);
+  }
+
   makeSlotReservation(idSlot: string) {
     this.updateToken();
     let idUser : string = this.user;
@@ -93,6 +103,10 @@ export class ApiService {
     return this.httpClient.post<Response<T>>(this.REST_API_SERVER + url, body, options);
   }
 
+  private partialUpdate<T>(url: string, body: any, options: { headers: HttpHeaders }) {
+    return this.httpClient.patch<Response<T>>(this.REST_API_SERVER + url, body, options);
+  }
+
   get token(): string {
     return localStorage.getItem(STORAGE_USER_TOKEN_KEY) || '';
   }
@@ -108,4 +122,5 @@ export class ApiService {
   private updateToken() {
     this.httpOptions.headers = this.httpOptions.headers.set("x-access-token", this.token);
   }
+
 }

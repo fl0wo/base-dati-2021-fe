@@ -39,6 +39,17 @@ export class PrivateAreaComponent implements OnInit {
   }
 
   flipEditPanel() {
+
+    if (this.showEditPanel){
+      this.sendUpdateRequest();
+    }
+
     this.showEditPanel = !this.showEditPanel;
+  }
+
+  private sendUpdateRequest() {
+    this.api.updateUser(this.meUpdate).subscribe(msg=>{
+      alert(msg.message);
+    });
   }
 }
