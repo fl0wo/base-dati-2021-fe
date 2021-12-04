@@ -52,4 +52,9 @@ export class PrivateAreaComponent implements OnInit {
       alert(msg.message);
     });
   }
+
+  getFormattedBirthDate() {
+    let date = new Date(this.me.birth_date);
+    return date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay();
+  }
 }

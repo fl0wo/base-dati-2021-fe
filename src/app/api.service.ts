@@ -25,7 +25,7 @@ export class ApiService {
   };
 
   private LOCAL_HOST = "http://localhost:5000";
-  private REST_API_SERVER =  "http://vps-487579d2.vps.ovh.net:5000";
+  private REST_API_SERVER = this.LOCAL_HOST;// "http://vps-487579d2.vps.ovh.net:5000";
 
   constructor(private httpClient: HttpClient) {}
 
@@ -62,8 +62,14 @@ export class ApiService {
 
   updateUser(meUpdate: User) {
     this.updateToken();
+
+    function date2String(dateStr: any) {
+      let date = new Date(dateStr);
+      return date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay();
+    }
+
     const payload = {
-      "birth_date" : meUpdate.birth_date,
+      "birth_date" : date2String(meUpdate.birth_date),
       "fiscal_code": meUpdate.fiscal_code,
       "phone": meUpdate.phone,
     }
