@@ -26,38 +26,59 @@
         </div>
 
         <div class="content">
-          ROLE ID : <a>@{{me.role}}</a>
-          <br>
           <time>{{getToday()}}</time>
+
+          <ul>
+            <li>
+              <strong>ROLE ID : <a>@{{me.role}}</a></strong>
+            </li>
+            <li>
+              <strong>FISCAL ID : {{me.fiscal_code}}</strong>
+            </li>
+            <li>
+              <strong>PHONE : {{me.phone}}</strong>
+            </li>
+            <li>
+              <strong>BIRTH DATE : {{me.birth_date}}</strong>
+          </li>
+          </ul>
+
         </div>
 
+        <div *ngIf="showEditPanel">
+          <input-field
+            [(field)]="meUpdate.birth_date"
+            inputType="date"
+            inputPlaceHolder="22/01/2001"
+            label="Date of birth"
+            [icon]="icons.basic"
+          >
+          </input-field>
 
-        <input-field
-          [(field)]="meUpdate.birth_date"
-          inputType="date"
-          inputPlaceHolder="22/01/2001"
-          label="Date of birth"
-          [icon]="icons.basic"
-        >
-        </input-field>
+          <input-field
+            [(field)]="meUpdate.fiscal_code"
+            inputType="text"
+            inputPlaceHolder="SBNFRN0029092HDI"
+            label="Fiscal id"
+            [icon]="icons.basic"
+          >
+          </input-field>
 
-        <input-field
-          [(field)]="meUpdate.fiscal_code"
-          inputType="text"
-          inputPlaceHolder="SBNFRN0029092HDI"
-          label="Fiscal id"
-          [icon]="icons.basic"
-        >
-        </input-field>
+          <input-field
+            [(field)]="meUpdate.phone"
+            inputType="text"
+            inputPlaceHolder="+39 2732563823"
+            label="Phone number"
+            [icon]="icons.basic"
+          >
+          </input-field>
+        </div>
 
-        <input-field
-          [(field)]="meUpdate.phone"
-          inputType="text"
-          inputPlaceHolder="+39 2732563823"
-          label="Phone number"
-          [icon]="icons.basic"
-        >
-        </input-field>
+        <button [ngClass]="this.showEditPanel ? 'button is-danger' :'button is-warning'"
+                (click)="this.flipEditPanel()">
+          {{this.showEditPanel ? "Submit Edit" : "Edit profile"}}
+        </button>
+
       </div>
     </div>
   </div>

@@ -14,7 +14,7 @@ export class PrivateAreaComponent implements OnInit {
 
   me:User = new User();
   meUpdate: User = new User();
-
+  showEditPanel:boolean = false;
   subscriptions:Subscription[] = [];
 
   icons = {
@@ -36,5 +36,9 @@ export class PrivateAreaComponent implements OnInit {
 
   getToday() {
     return new Date(Date.now()).toLocaleDateString("it-IT");
+  }
+
+  flipEditPanel() {
+    this.showEditPanel = !this.showEditPanel;
   }
 }
