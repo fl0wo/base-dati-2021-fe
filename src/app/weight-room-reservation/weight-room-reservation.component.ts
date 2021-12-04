@@ -78,12 +78,15 @@ export class WeightRoomReservationComponent implements OnInit {
     this.subscriptionName = this.commonService.getUpdate().subscribe((message) => { //message contains the data sent from service
       this.messageReceived = message.text;
       let date = message.date;
-      console.log((this.messageReceived))
       if((this.messageReceived) == 'updateSlots')
         this.fillCalendarWithSlots2(()=>{
           this.showSlotsOf2(date)
         });
+    });
 
+    this.subscriptionName = this.commonService.getUpdateFromAddSlot().subscribe((message) => { //message contains the data sent from service
+      if((message.text) == 'sendUpdateFromAddSlot')
+        this.fillCalendarWithSlots();
     });
 
   }

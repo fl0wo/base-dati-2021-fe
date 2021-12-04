@@ -6,34 +6,75 @@
       <button class="delete is-large" (click)="closeScreen()">Close</button>
     </div>
     <div class="message-body">
-      Title
       <div class="field">
       <div class="control is-loading">
-        <input class="input" type="text" placeholder="Title">
+        <input-field
+          [(field)]="body.title"
+          inputType="text"
+          inputPlaceHolder="Title"
+          label="Title"
+          [icon]="icons.basic"
+        >
+        </input-field>
       </div>
     </div>
     <div class="field">
-      Description
       <div class="control is-loading">
-        <input class="input" type="text" placeholder="Description">
+        <input-field
+          [(field)]="body.description"
+          inputType="text"
+          inputPlaceHolder="Description"
+          label="Description"
+          [icon]="icons.basic"
+        >
+        </input-field>
       </div>
     </div>
     <div class="field">
-      Date
       <div class="control is-loading">
-        <input class="input" type="text" placeholder="2020-10-24">
+        <input-field
+          [(field)]="body.date"
+          inputType="date"
+          inputPlaceHolder="22/01/2001"
+          label="When"
+          [icon]="icons.basic"
+        >
+        </input-field>
       </div>
     </div>
     <div class="field">
-      From
       <div class="control is-loading">
-        <input class="input" type="text" placeholder="16:00:00">
+        <input-field
+          [(field)]="body.time_from"
+          inputType="time"
+          inputPlaceHolder="10:00:100"
+          label="From"
+          [icon]="icons.basic"
+        >
+        </input-field>
       </div>
     </div>
     <div class="field">
-      To
       <div class="control is-loading">
-        <input class="input" type="text" placeholder="16:00:00">
+        <input-field
+          [(field)]="body.time_to"
+          inputType="time"
+          inputPlaceHolder="10:00:100"
+          label="To"
+          [icon]="icons.basic"
+        >
+        </input-field>
+      </div>
+    </div>
+    <div class="field">
+      <div class="control is-loading">
+        <input-field
+          [(field)]="body.max_capacity"
+          inputType="number"
+          inputPlaceHolder="80"
+          label="Capacity"
+        >
+        </input-field>
       </div>
     </div>
       <button class="button is-success" (click)="saveSlot()">

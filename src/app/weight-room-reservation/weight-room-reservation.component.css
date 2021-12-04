@@ -127,3 +127,8 @@
   transform: translateY(.125rem);
 }
 
+.center {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}

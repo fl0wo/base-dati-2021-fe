@@ -1,9 +1,10 @@
 
 <div class="container is-fluid">
   <div class="notification">
-    {{me|json}}
-    <button (click)="wantAddSlot=true" *ngIf="me.role=='trainer'" class="button is-success">Add Slot</button>
-    <app-slot-detail *ngIf="wantAddSlot" (wantScreen)="closeAddSlot($event)"></app-slot-detail>
+    <button (click)="wantAddSlot=true" *ngIf="me.role=='manager'" class="button is-success">Add Slot</button>
+    <div style="width: 40%" class="center">
+      <app-slot-detail  *ngIf="wantAddSlot" (wantScreen)="closeAddSlot($event)"></app-slot-detail>
+    </div>
 
     <div>
       <div class="checks">
@@ -71,13 +72,6 @@
       </tr>
       </tbody>
     </table>
-
-    <div>
-      <li *ngFor="let slot of slots">
-             <div  style="font-size: 20px;text-align: center;" (click)="openSlotDetail(slot)"> {{slot | json}}
-              </div>
-      </li>
-    </div>
   </div>
 </div>
 

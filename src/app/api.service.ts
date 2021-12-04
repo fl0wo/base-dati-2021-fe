@@ -76,6 +76,12 @@ export class ApiService {
     return this.post<MessageReponse>('/me', payload,this.httpOptions);
   }
 
+
+  addSlot(newSlot: any) {
+    this.updateToken();
+    return this.post<MessageReponse>('/slots/add', newSlot, this.httpOptions);
+  }
+
   makeSlotReservation(idSlot: string) {
     this.updateToken();
     let idUser : string = this.user;
