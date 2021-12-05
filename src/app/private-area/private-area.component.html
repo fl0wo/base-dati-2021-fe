@@ -9,7 +9,7 @@
     <div class="card" style="width:400px;">
       <div class="card-image">
         <figure class="image is-4by3">
-          <img src="https://bulma.io/images/placeholders/256x256.png" alt="Placeholder image">
+          <img [src]="imageToShow" alt="Placeholder image">
         </figure>
       </div>
       <div class="card-content">
@@ -73,6 +73,9 @@
             [icon]="icons.basic"
           >
           </input-field>
+
+          <input type="file" name="profile" (change)="onFileSelect($event)" />
+
         </div>
 
         <div class="bigButton">

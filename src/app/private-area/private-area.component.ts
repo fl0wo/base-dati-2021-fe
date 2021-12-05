@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {ApiService} from "../api.service";
 import {Subscription} from "../../models/Subscription";
 import {faAddressBook, faKey} from "@fortawesome/free-solid-svg-icons";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-private-area',
@@ -23,6 +24,10 @@ export class PrivateAreaComponent implements OnInit {
     pwd : faKey
   }
 
+  pp: any = null;
+  curpp : any = null;
+  imageToShow: any;
+
   constructor(public router:Router,public api:ApiService) {}
 
   ngOnInit(): void {
@@ -37,6 +42,21 @@ export class PrivateAreaComponent implements OnInit {
       this.api.getAllUsers().subscribe( (users:any[]) =>{
         this.allUsers = users;
       })
+
+      this.api.getProfilePic().subscribe(blob=>{
+        this.createImageFromBlob(blob);
+      })
+  }
+
+  createImageFromBlob(image: Blob) {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => {
+      this.imageToShow = reader.result;
+    }, false);
+
+    if (image) {
+      reader.readAsDataURL(image);
+    }
   }
 
   getToday() {
@@ -53,13 +73,42 @@ export class PrivateAreaComponent implements OnInit {
   }
 
   private sendUpdateRequest() {
-    this.api.updateUser(this.meUpdate).subscribe(msg=>{
-      alert(msg.message);
-    });
+
+    if(this.hasDifferences(this.me,this.meUpdate)) {
+      this.api.updateUser(this.meUpdate).subscribe(msg=>{
+        alert(msg.message);
+      });
+    }
+
+    if(this.pp!=null){
+      let formData = new FormData();
+      formData.append('file', this.pp);
+      console.log(this.pp);
+
+      this.api.updateProfilePic(formData).subscribe(msg=>{
+
+        this.api.getProfilePic().subscribe(blob=>{
+          this.createImageFromBlob(blob);
+        })
+      })
+    }
   }
 
   getFormattedBirthDate() {
     let date = new Date(this.me.birth_date);
     return date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay();
+  }
+
+  hasDifferences(me: User, meUpdate: User) {
+    return meUpdate.birth_date != null &&
+      me.birth_date!=meUpdate.birth_date ||
+      me.phone != null && me.phone != meUpdate.phone ||
+      me.fiscal_code != null && me.fiscal_code != meUpdate.fiscal_code;
+  }
+
+  onFileSelect(event:any) {
+    if (event?.target?.files.length > 0) {
+      this.pp = event.target.files[0];
+    }
   }
 }

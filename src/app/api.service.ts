@@ -98,6 +98,24 @@ export class ApiService {
     return this.post<any>('/slots/reservation', {'idSlot': idSlot, 'idUser': idUser}, this.httpOptions);
   }
 
+  updateProfilePic(formData: FormData) {
+    this.updateToken();
+    return this.httpClient
+      .post<Response<MessageReponse>>(this.REST_API_SERVER + '/me/profilepic',
+        formData, this.httpOptions);
+  }
+
+  getProfilePic():Observable<Blob> {
+    this.updateToken();
+    let headers = this.httpOptions.headers;
+
+    return this.httpClient
+      .get(this.REST_API_SERVER + '/me/profilepic',{
+        headers : headers,
+        responseType: 'blob'
+      });
+  }
+
   getLessons(): Observable<Lesson[]> {
     return this.getMultipleAndMap<Lesson>('/lessons/reservations', this.httpOptions);
   }
