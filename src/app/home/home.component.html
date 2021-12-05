@@ -4,9 +4,9 @@
 </header>
 <div class="page">
     <section class="section">
-        <h1 class="title" style="font-family: 'quartz'; font-size: 100px; margin-bottom: 50px " >Zyzz Gym</h1>
-        <h2 class="subtitle">
-          A simple container to divide your page into <strong>sections</strong>, like the one you're currently reading.
+        <h1 class="mY" style="text-align: center;font-family: 'quartz'; font-size: 100px; margin-bottom: 50px " >Zyzz Gym</h1>
+        <h2   style="color: white;text-align: center;" >
+          The  <strong style="color: white;">GYM</strong> of your dreams!
         </h2>
         <div class="buttonsArea">
           <button (click)="wantLogin=true"><span>Login</span></button>
@@ -19,12 +19,19 @@
           [(user)]="me" *ngIf="wantRegister"
           [(wantScreen)]="wantRegister"
         ></app-register>
-
-
-
-
     </section>
-<app-weight-room-reservation></app-weight-room-reservation>
+
+  <div class="container is-fluid">
+    <div class="notification">
+      <app-courses></app-courses>
+    </div>
+  </div>
+  <div style="height: 120px">
+    <h1 class="mY" style="text-align: center;font-family: 'quartz'; font-size: 100px; margin-top: 50px" >
+      START TRAINING RIGHT NOW!
+    </h1>
+  </div>
+  <app-weight-room-reservation></app-weight-room-reservation>
   <br>
 </div>
 

@@ -1,6 +1,6 @@
 
 <div class="container is-fluid">
-  <div class="notification">
+  <div class="mB">
     {{me | json}}
     <button (click)="wantAddSlot=true" *ngIf="me.role=='manager'" class="button is-success">Add Slot</button>
     <div style="width: 40%" class="center">
@@ -16,7 +16,7 @@
       <br>
       <label class="checkbox">
         <input type="checkbox" [defaultChecked]="seeLessons" [checked]="seeLessons" (change)="seeLessons = !seeLessons">
-        See Lezioni
+        See Lessons
       </label>
       </div>
 
@@ -26,7 +26,7 @@
           <input type="button" (click)="increaseMonth()" value="+" />
         </div>
 
-        <input class="todayButton" type="button" (click)="setCurrentMonth()" value="today" />
+        <input class="inputButton" type="button" (click)="setCurrentMonth()" value="TODAY" />
       </div>
     </div>
 
@@ -55,13 +55,13 @@
 
           <div class="calendar-day-header" [ngClass]="{'blue-date': day.isToday}">
             <ng-container *ngIf="seeSlots">
-              <div *ngFor="let slot of this.getSlotsOf(day.date)" (click)="this.showSlotsOf(day.date)">
+              <div class="mB" style="font-size: 12px" *ngFor="let slot of this.getSlotsOf(day.date)" (click)="this.showSlotsOf(day.date)">
                 {{slot.time_from}} - {{slot.time_to}}
               </div>
             </ng-container>
 
             <ng-container *ngIf="seeLessons">
-              <div *ngFor="let lesson of this.getLessonsOf(day.date)" (click)="this.showLessonsOfDay(day.date)">
+              <div class="mC" style="font-size: 12px" *ngFor="let lesson of this.getLessonsOf(day.date)" (click)="this.showLessonsOfDay(day.date)">
                 {{lesson.time}} - {{lesson.course}}
               </div>
             </ng-container>

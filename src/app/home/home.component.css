@@ -8,7 +8,7 @@
 }
 
 .page {
-  background: linear-gradient(#e66465, #9198e5);  /* Green background with 30% opacity */
+  background-color: #33414f; /* Green background with 30% opacity */
 }
 
 .section {
@@ -41,7 +41,7 @@ button:after{
   left: 0;
   width: 0;
   height: 100%;
-  background: #a34549;
+  background: #ffdd03;;
   transition: all .35s;
   border-radius: 25px;
 }
@@ -76,5 +76,10 @@ button span{
   background-repeat: no-repeat;
   background-size: cover;
 }
+* {
+  text-align: center;
+  font-family: 'quartz';
+}
+
 
 
