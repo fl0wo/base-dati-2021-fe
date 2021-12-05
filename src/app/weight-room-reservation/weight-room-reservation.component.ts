@@ -72,6 +72,7 @@ export class WeightRoomReservationComponent implements OnInit {
 
   me:User = new User();
   wantAddSlot: boolean=false;
+  wantAddLesson: boolean=false;
 
   constructor(private api:ApiService, public dialog: MatDialog, private commonService : CommonService) {
     // subscribe to sender component messages
@@ -105,6 +106,10 @@ export class WeightRoomReservationComponent implements OnInit {
 
   public closeAddSlot(res: boolean) {
     this.wantAddSlot = res;
+  }
+
+  public closeAddLesson(res: boolean) {
+    this.wantAddLesson = res;
   }
 
   private generateCalendarDays(monthIndex: number): void {

@@ -1,1 +1,59 @@
-<p>lesson-reservation works!</p>
+<div class="container">
+  <article class="message is-info">
+    <div class="message-header">
+      Add Slot
+      <button class="delete is-large" (click)="closeScreen()">Close</button>
+    </div>
+    <div class="message-body">
+      <div class="field">
+        <div class="control is-loading">
+          <input-field
+            [(field)]="body.date"
+            inputType="date"
+            inputPlaceHolder="22/01/2001"
+            label="When"
+            [icon]="icons.basic"
+          >
+          </input-field>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control is-loading">
+          <input-field
+            [(field)]="body.time"
+            inputType="time"
+            inputPlaceHolder="10:00:100"
+            label="From"
+            [icon]="icons.basic"
+          >
+          </input-field>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control is-loading">
+          <input-field
+            [(field)]="body.max_participants"
+            inputType="number"
+            inputPlaceHolder="80"
+            label="Capacity"
+          >
+          </input-field>
+        </div>
+      </div>
+      <div class="field">
+        <div class="select">
+          <select [ngModel]="selectedCourse"
+                  (ngModelChange)="onSelectCourse($event)">
+            <option [ngValue]="course.id" *ngFor="let course of courses">{{course.name}}</option>
+          </select>
+        </div>
+      </div>
+      <button class="button is-success" (click)="saveLesson()">
+        <span class="icon is-small">
+          <i class="fas fa-check"></i>
+        </span>
+        <span>Save</span>
+      </button>
+    </div>
+  </article>
+</div>

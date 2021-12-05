@@ -17,12 +17,11 @@
 
 button {
   display: inline-block;
-  width: 200px;
   height: 40px;
   margin: 5px;
   line-height: 40px;
   font-size: 18px;
-  font-family: sans-serif;
+  font-family: 'quartz';
   text-decoration: none;
   color: #333;
   border: 2px solid #333;
@@ -32,6 +31,7 @@ button {
   transition: all .35s;
   border-radius: 25px;
   cursor: pointer;
+  min-width: 200px;
 }
 
 button:after{

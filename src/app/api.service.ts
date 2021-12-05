@@ -8,6 +8,7 @@ import {Response} from "../models/Response";
 import {Lesson} from "../models/Lesson";
 import {Subscription} from "../models/Subscription";
 import {Returnable} from "../models/Returnable";
+import {Course} from "../models/Course";
 
 const STORAGE_USER_TOKEN_KEY = 'user.token';
 const STORAGE_USER_KEY = 'user';
@@ -25,7 +26,7 @@ export class ApiService {
   };
 
   private LOCAL_HOST = "http://localhost:5000";
-  private REST_API_SERVER = this.LOCAL_HOST;// "http://vps-487579d2.vps.ovh.net:5000";
+  private REST_API_SERVER = this.LOCAL_HOST; //"http://vps-487579d2.vps.ovh.net:5000";
 
   constructor(private httpClient: HttpClient) {}
 
@@ -159,4 +160,13 @@ export class ApiService {
     this.httpOptions.headers = this.httpOptions.headers.set("x-access-token", this.token);
   }
 
+  public getCourses(): Observable<Course[]> {
+    this.updateToken()
+    return this.getMultipleAndMap<Course>('/courses/all', this.httpOptions);
+  }
+
+  addLesson(newLesson: any) {
+      this.updateToken();
+      return this.post<MessageReponse>('/lessons/add', newLesson, this.httpOptions);
+  }
 }
