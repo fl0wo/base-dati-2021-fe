@@ -74,7 +74,7 @@ export class PrivateAreaComponent implements OnInit {
 
   private sendUpdateRequest() {
 
-    if(this.hasDifferences(this.me,this.meUpdate)) {
+    if(this.hasDifferences(this.me,this.meUpdate) || true) {
       this.api.updateUser(this.meUpdate).subscribe(msg=>{
         alert(msg.message);
       });
@@ -101,7 +101,8 @@ export class PrivateAreaComponent implements OnInit {
 
   hasDifferences(me: User, meUpdate: User) {
     return meUpdate.birth_date != null &&
-      me.birth_date!=meUpdate.birth_date ||
+      new Date(me.birth_date).getTime()!=
+      new Date(meUpdate.birth_date).getTime() ||
       me.phone != null && me.phone != meUpdate.phone ||
       me.fiscal_code != null && me.fiscal_code != meUpdate.fiscal_code;
   }
