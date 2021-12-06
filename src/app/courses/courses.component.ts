@@ -51,14 +51,18 @@ export class CoursesComponent implements OnInit {
       this.me = user;
     });
 
-    this.api.getCourses().subscribe((courseArray) => {
-      this.courses=courseArray;
-    });
+    this.initWithCourses();
 
     this.api.getTrainers().subscribe((trainerArray) => {
       this.trainers=trainerArray;
     });
 
+  }
+
+  initWithCourses(){
+    this.api.getCourses().subscribe((courseArray) => {
+      this.courses=courseArray;
+    });
   }
 
   public closeAddCourse(res: boolean) {
@@ -85,6 +89,7 @@ export class CoursesComponent implements OnInit {
         message: msg
       }
     });
+    this.initWithCourses();
   }
 
   private addCourseFailed(msg: string) {
