@@ -66,7 +66,7 @@ export class WeightRoomReservationComponent implements OnInit {
   private lessons: Lesson[] = [];
 
   messageReceived: string = "";
-  private subscriptionName: Subscription;
+  private commonServiceSub: Subscription;
   seeSlots: boolean = true;
   seeLessons: boolean = true;
 
@@ -76,7 +76,7 @@ export class WeightRoomReservationComponent implements OnInit {
 
   constructor(private api:ApiService, public dialog: MatDialog, private commonService : CommonService) {
     // subscribe to sender component messages
-    this.subscriptionName = this.commonService.getUpdate().subscribe((message) => { //message contains the data sent from service
+    this.commonServiceSub = this.commonService.getUpdate().subscribe((message) => { //message contains the data sent from service
       this.messageReceived = message.text;
       let date = message.date;
       if((this.messageReceived) == 'updateSlots')
@@ -85,14 +85,19 @@ export class WeightRoomReservationComponent implements OnInit {
         });
     });
 
-    this.subscriptionName = this.commonService.getUpdateFromAddSlot().subscribe((message) => { //message contains the data sent from service
+    this.commonServiceSub = this.commonService.getUpdateFromAddSlot().subscribe((message) => { //message contains the data sent from service
       if((message.text) == 'sendUpdateFromAddSlot')
         this.fillCalendarWithSlots();
     });
 
+    this.commonServiceSub = this.commonService.getUpdateFromAddLesson().subscribe((message) => { //message contains the data sent from service
+      if((message.text) == 'sendUpdateFromAddLesson')
+        this.fillCalendarWithLessons();
+    });
+
   }
   ngOnDestroy() { // It's a good practice to unsubscribe to ensure no memory leaks
-    this.subscriptionName.unsubscribe();
+    this.commonServiceSub.unsubscribe();
   }
 
   ngOnInit(): void {

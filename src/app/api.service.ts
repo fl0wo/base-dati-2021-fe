@@ -169,4 +169,14 @@ export class ApiService {
       this.updateToken();
       return this.post<MessageReponse>('/lessons/add', newLesson, this.httpOptions);
   }
+
+  getTrainers(): Observable<User[]> {
+    this.updateToken()
+    return this.getMultipleAndMap<User>('/users/trainers/all', this.httpOptions);
+  }
+
+  addCourse(newCourse: any) {
+    this.updateToken();
+    return this.post<MessageReponse>('/courses/add', newCourse, this.httpOptions);
+  }
 }

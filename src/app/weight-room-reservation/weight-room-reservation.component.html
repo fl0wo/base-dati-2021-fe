@@ -58,7 +58,8 @@
           class="calendar-day"
             [ngClass]="{'past-date': day.isPastDate, 'today': day.isToday}"
             *ngFor="let day of week; let j = index">
-
+          <strong>{{day.date.getDate()}}</strong>
+          <strong *ngIf="day.isToday || (i==0 && j==0) || (day.date.getDate() == 1)"> {{monthNames[day.date.getMonth()]}}</strong>
           <div class="calendar-day-header" [ngClass]="{'blue-date': day.isToday}">
             <ng-container *ngIf="seeSlots">
               <div class="mB" style="font-size: 12px" *ngFor="let slot of this.getSlotsOf(day.date)" (click)="this.showSlotsOf(day.date)">
@@ -72,8 +73,7 @@
               </div>
             </ng-container>
 
-            <strong>{{day.date.getDate()}}</strong>
-            <strong *ngIf="day.isToday || (i==0 && j==0) || (day.date.getDate() == 1)"> {{monthNames[day.date.getMonth()]}}</strong>
+
           </div>
         </td>
       </tr>

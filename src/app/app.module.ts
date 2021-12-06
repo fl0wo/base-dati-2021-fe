@@ -52,7 +52,7 @@ import { CoursesComponent } from './courses/courses.component';
         NoopAnimationsModule,
         HttpClientJsonpModule,
         NgxTimelineAcracodeModule,
-        NgxTimelineAcracodeModule
+        BrowserAnimationsModule
     ],
   providers: [],
   bootstrap: [AppComponent]

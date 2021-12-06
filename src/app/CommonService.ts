@@ -9,6 +9,10 @@ export class CommonService {
     this.subjectName.next({ text: message, date: date }); //next() will feed the value in Subject
   }
 
+  sendUpdateFromAddLesson(message: string) { //the component that wants to update something, calls this fn
+    this.subjectName.next({ text: message }); //next() will feed the value in Subject
+  }
+
   sendUpdateFromAddSlot(message: string) { //the component that wants to update something, calls this fn
     this.subjectName.next({ text: message }); //next() will feed the value in Subject
   }
@@ -20,4 +24,9 @@ export class CommonService {
   getUpdateFromAddSlot(): Observable<any> { //the receiver component calls this function
     return this.subjectName.asObservable(); //it returns as an observable to which the receiver funtion will subscribe
   }
+
+  getUpdateFromAddLesson(): Observable<any> { //the receiver component calls this function
+    return this.subjectName.asObservable(); //it returns as an observable to which the receiver funtion will subscribe
+  }
+
 }

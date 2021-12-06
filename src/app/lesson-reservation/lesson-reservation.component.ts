@@ -5,6 +5,7 @@ import {Course} from "../../models/Course";
 import {MessageReponse} from "../../models/MessageResponse";
 import {MessageResponseDialogComponent} from "../shared-components/message-response-dialog/message-response-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {CommonService} from "../CommonService";
 
 @Component({
   selector: 'app-lesson-reservation',
@@ -28,8 +29,8 @@ export class LessonReservationComponent implements OnInit {
   }
 
   courses : Course[] = [];
-  selectedCourse!: Course;
-  constructor(private api:ApiService, public dialog: MatDialog) { }
+  selectedCourse!: string;
+  constructor(private api:ApiService, public dialog: MatDialog,private commonService :CommonService) { }
 
 
   ngOnInit(): void {
@@ -39,31 +40,33 @@ export class LessonReservationComponent implements OnInit {
   }
 
   saveLesson(){
+    let y: number = +this.body.max_participants;
+    this.body.max_participants = y;
     if(this.body.time != "" && this.body.date != "" && this.body.course != "" && this.body.max_participants > 0){
       this.api.addLesson(this.body).subscribe(resp=>{
         if(resp.status==200) {
-          this.addLessonSuccess(resp.data);
+          this.addLessonSuccess(resp.message);
         } else {
-          this.addLessonFailed(resp.data);
+          this.addLessonFailed(resp.message);
         }
       })
     }
   }
 
-  private addLessonSuccess(msg: MessageReponse) {
-    this.dialog.open(MessageResponseDialogComponent, {
-      data: {
-        title: "Lesson Added!",
-        message: msg.message
-      }
-    });
+  private addLessonSuccess(msg: string) {
+    this.sendRefreshMainComponent();
   }
 
-  private addLessonFailed(msg: MessageReponse) {
+  sendRefreshMainComponent(): void {
+    // send message to subscribers via observable subject
+    this.commonService.sendUpdateFromAddLesson('sendUpdateFromAddLesson');
+  }
+
+  private addLessonFailed(msg: string) {
     this.dialog.open(MessageResponseDialogComponent, {
       data: {
-        title: "Login failed",
-        message: msg.message
+        title: "Add lesson failed",
+        message: msg
       }
     });
   }
@@ -72,7 +75,7 @@ export class LessonReservationComponent implements OnInit {
     this.wantScreen.emit(false);
   }
 
-  onSelectCourse(course: Course) {
+  onSelectCourse(course: string) {
       this.selectedCourse = course;
       this.body.course = this.selectedCourse;
   }

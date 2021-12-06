@@ -49,3 +49,76 @@
     </article>
   </div>
 </div>
+
+<div class="tile is-parent">
+  <article class="tile is-child">
+    <p class="title">OUR CURRENT COURSES</p>
+    <p class="subtitle mY">Check out our current available curses and subscribe!</p>
+    <div class="content">
+      <button (click)="changeState()" *ngIf="me.role=='trainer'" class="button inputButton">Add new Course</button>
+      <div [@heightGrow]="state" style="width: 40%" class="center">
+        <div *ngIf="wantAddCourse">
+          <div class="container">
+            <article class="message is-info">
+              <div class="message-header">
+                Add Course
+                <button class="delete is-large" (click)="changeState()">Close</button>
+              </div>
+              <div class="message-body">
+                <div class="field">
+                  <div class="control is-loading">
+                    <input-field
+                      [(field)]="body.name"
+                      inputType="text"
+                      inputPlaceHolder="Title"
+                      label="Title"
+                      [icon]="icons.basic"
+                    >
+                    </input-field>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="control is-loading">
+                    <input-field
+                      [(field)]="body.description"
+                      inputType="text"
+                      inputPlaceHolder="Description"
+                      label="Description"
+                      [icon]="icons.basic"
+                    >
+                    </input-field>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="select">
+                    <select [ngModel]="selectedTrainer"
+                            (ngModelChange)="onSelectTrainer($event)">
+                      <option [ngValue]="trainer.id" *ngFor="let trainer of trainers">{{trainer.name}} - {{trainer.surname}}</option>
+                    </select>
+                  </div>
+                </div>
+                <button class="button is-success" (click)="addCourse()">
+                <span class="icon is-small">
+                  <i class="fas fa-check"></i>
+                </span>
+                  <span>Save</span>
+                </button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+<div>
+  <div *ngFor="let c of courses" class="tile is-horizontal" style="padding-bottom: 20px">
+    <article class="tile is-child mB">
+      <p class="title">{{c.name}}</p>
+      <p class="subtitle mY">{{c.description}}</p>
+      <div class="content">
+      </div>
+    </article>
+  </div>
+</div>
+

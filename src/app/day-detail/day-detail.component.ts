@@ -99,9 +99,21 @@ export class DayDetailComponent implements OnInit {
   }
 
   makeSlotReservation(idSlot: string) {
-        this.api.makeSlotReservation(idSlot).subscribe(msg=>{
+      this.api.makeSlotReservation(idSlot).subscribe(msg=>{
+        if(msg.status==200) {
           this.sendRefreshMainComponent();
-        });
+        } else {
+          this.addSlotFailed(msg.message);
+        }
+      });
+  }
+  private addSlotFailed(msg: string) {
+    this.dialog.open(MessageResponseDialogComponent, {
+      data: {
+        title: "Add slot failed",
+        message: msg
+      }
+    });
   }
 
 }
