@@ -90,36 +90,56 @@
   </div>
   <div>
     <div class="accesses column">
-      <h3>Registrations</h3>
+      <h3 style="font-family: 'quartz'">Registrations</h3>
       <ul class="block-list is-small">
         <li class="box" *ngFor="let sub of subscriptions">
-          {{sub | json}}
+          Date: <span class="mY">{{sub.date}}</span>
+            <br>
+            type: <span class="mY">{{sub.reservation_type}}</span>
+            <br>
+            time: <span class="mY">{{sub.time}}</span>
         </li>
       </ul>
     </div>
 
-    <div class="accesses column">
-    <div *ngIf="this.me.role=='admin'">
-      <h3>All Users :</h3>
+    <div *ngIf="this.me.role=='admin'" class="accesses column">
+    <div >
+      <h3 style="font-family: 'quartz'">All Users :</h3>
       <li class="box" *ngFor="let user of this.allUsers">
-        {{user | json}}
+        Birth Date: <span class="mY">{{user.birth_date}}</span>
+        <br>
+        Email: <span class="mY">{{user.email}}</span>
+        <br>
+        Name: <span class="mY">{{user.name}}</span>
+        <br>
+        Role: <span class="mY">{{user.role}}</span>
+        <br>
+        Surname: <span class="mY">{{user.surname}}</span>
     </div>
     </div>
 
     <div class ="accesses column">
-      <h3>Accesses</h3>
+      <h3 style="font-family: 'quartz'">Accesses</h3>
       <ul class="block-list is-small">
         <li class="box" *ngFor="let access of accesses">
-          {{access | json}}
+          Date: <span class="mY">{{access.date}}</span>
+          <br>
+          Entrance: <span class="mY">{{access.time_entrance}}</span>
+          <br>
+          exit: <span class="mY">{{access.time_exit}}</span>
         </li>
       </ul>
     </div>
 
     <div class="accesses column">
-      <h3>Policy</h3>
+      <h3 style="font-family: 'quartz'">Policy</h3>
       <ul class="block-list is-small">
-        <li class="box">
-          {{policy | json}}
+        <li class="box" *ngFor="let p of policy">
+          From: <span class="mY">{{p.valid_from}}</span>
+          <br>
+          To: <span class="mY">{{p.valid_to}}</span>
+          <br>
+          Description: <span class="mY">{{p.description}}</span>
         </li>
       </ul>
     </div>

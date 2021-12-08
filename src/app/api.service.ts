@@ -190,7 +190,7 @@ export class ApiService {
 
   getPolicies() {
     this.updateToken()
-    return this.getAndMap<Policy>('/policies', this.httpOptions);
+    return this.getMultipleAndMap<Policy>('/policies', this.httpOptions);
   }
 
   getAccesses() {

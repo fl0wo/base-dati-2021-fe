@@ -16,7 +16,6 @@ input-field {
 }
 
 .accesses {
-  font-family: 'Roboto', sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,8 +32,8 @@ input-field {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #9b59b6;
-  color: #fff;
+  background: #33414f;
+  color: #f3e6e8;
   border-radius: 50px;
 }
 
@@ -50,7 +49,7 @@ input-field {
   padding: 15px 40px;
   box-shadow: 0 5px 25px rgba(0,0,0,.1);
   position: relative;
-  background: #fff;
+  background: #a9a9a9;
   cursor: pointer;
   transition: all 0.3s;
 }
@@ -58,14 +57,19 @@ input-field {
 .box:hover {
   transform: scale(1.1);
   z-index: 100;
-  background: #8e44ad;
+  background: rgba(192, 83, 0, 0.56);
   color: #fff;
 }
 
 .box i {
-  color: #8e44ad;
+  color: #33414f;
 }
 
 .box:hover i {
   color: #fff;
 }
+
+*{
+  font-family: quartz;
+}
+

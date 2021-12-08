@@ -20,7 +20,7 @@ export class PrivateAreaComponent implements OnInit {
   allUsers: User[] = []
   showEditPanel:boolean = false;
   subscriptions:Subscription[] = [];
-  policy!: Policy;
+  policy: Policy[]= [];
   accesses: Access[]=[];
 
   icons = {
