@@ -88,8 +88,8 @@
       </div>
     </div>
   </div>
-  <div class='zoomed-map'>
-    <div class="accesses">
+  <div>
+    <div class="accesses column">
       <h3>Registrations</h3>
       <ul class="block-list is-small">
         <li class="box" *ngFor="let sub of subscriptions">
@@ -98,11 +98,15 @@
       </ul>
     </div>
 
+    <div class="accesses column">
     <div *ngIf="this.me.role=='admin'">
-      All Users :
-      {{this.allUsers | json}}
+      <h3>All Users :</h3>
+      <li class="box" *ngFor="let user of this.allUsers">
+        {{user | json}}
     </div>
-    <div class ="accesses">
+    </div>
+
+    <div class ="accesses column">
       <h3>Accesses</h3>
       <ul class="block-list is-small">
         <li class="box" *ngFor="let access of accesses">
@@ -111,10 +115,12 @@
       </ul>
     </div>
 
-    <div>
+    <div class="accesses column">
       <h3>Policy</h3>
       <ul class="block-list is-small">
+        <li class="box">
           {{policy | json}}
+        </li>
       </ul>
     </div>
 
