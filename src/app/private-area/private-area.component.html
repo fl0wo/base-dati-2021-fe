@@ -6,8 +6,8 @@
 
 <div class="horizontal-container">
   <div>
-    <div class="card" style="width:400px;">
-      <div class="card-image">
+    <div class="card" style="width:400px; margin: 20px">
+      <div class="card-image" style="text-align: center">
         <figure class="image is-4by3">
           <img [src]="imageToShow" alt="Placeholder image">
         </figure>
@@ -89,7 +89,8 @@
     </div>
   </div>
   <div class='zoomed-map'>
-    <div>
+    <div class="accesses">
+      <h3>Registrations</h3>
       <ul class="block-list is-small">
         <li class="box" *ngFor="let sub of subscriptions">
           {{sub | json}}
@@ -101,8 +102,7 @@
       All Users :
       {{this.allUsers | json}}
     </div>
-
-    <div>
+    <div class ="accesses">
       <h3>Accesses</h3>
       <ul class="block-list is-small">
         <li class="box" *ngFor="let access of accesses">
