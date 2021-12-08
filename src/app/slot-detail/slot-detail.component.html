@@ -1,13 +1,13 @@
 
 <div class="container">
-  <article class="message is-info">
+  <article class="message mB">
     <div class="message-header">
       Add Slot
       <button class="delete is-large" (click)="closeScreen()">Close</button>
     </div>
     <div class="message-body">
       <div class="field">
-      <div class="control is-loading">
+      <div class="control ">
         <input-field
           [(field)]="body.title"
           inputType="text"
@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="field">
-      <div class="control is-loading">
+      <div class="control ">
         <input-field
           [(field)]="body.description"
           inputType="text"
@@ -31,7 +31,7 @@
       </div>
     </div>
     <div class="field">
-      <div class="control is-loading">
+      <div class="control ">
         <input-field
           [(field)]="body.date"
           inputType="date"
@@ -43,7 +43,7 @@
       </div>
     </div>
     <div class="field">
-      <div class="control is-loading">
+      <div class="control ">
         <input-field
           [(field)]="body.time_from"
           inputType="time"
@@ -55,7 +55,7 @@
       </div>
     </div>
     <div class="field">
-      <div class="control is-loading">
+      <div class="control ">
         <input-field
           [(field)]="body.time_to"
           inputType="time"
@@ -67,7 +67,7 @@
       </div>
     </div>
     <div class="field">
-      <div class="control is-loading">
+      <div class="control ">
         <input-field
           [(field)]="body.max_capacity"
           inputType="number"
@@ -78,9 +78,6 @@
       </div>
     </div>
       <button class="button is-success" (click)="saveSlot()">
-        <span class="icon is-small">
-          <i class="fas fa-check"></i>
-        </span>
         <span>Save</span>
       </button>
     </div>

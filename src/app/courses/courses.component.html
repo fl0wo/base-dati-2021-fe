@@ -59,14 +59,14 @@
       <div [@heightGrow]="state" style="width: 40%" class="center">
         <div *ngIf="wantAddCourse">
           <div class="container">
-            <article class="message is-info">
+            <article class="message mB">
               <div class="message-header">
                 Add Course
                 <button class="delete is-large" (click)="changeState()">Close</button>
               </div>
               <div class="message-body">
                 <div class="field">
-                  <div class="control is-loading">
+                  <div class="control ">
                     <input-field
                       [(field)]="body.name"
                       inputType="text"
@@ -78,7 +78,7 @@
                   </div>
                 </div>
                 <div class="field">
-                  <div class="control is-loading">
+                  <div class="control ">
                     <input-field
                       [(field)]="body.description"
                       inputType="text"
@@ -98,9 +98,6 @@
                   </div>
                 </div>
                 <button class="button is-success" (click)="addCourse()">
-                <span class="icon is-small">
-                  <i class="fas fa-check"></i>
-                </span>
                   <span>Save</span>
                 </button>
               </div>

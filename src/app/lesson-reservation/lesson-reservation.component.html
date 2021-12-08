@@ -1,12 +1,12 @@
 <div class="container">
-  <article class="message is-info">
+  <article class="message mB">
     <div class="message-header">
-      Add Slot
+      Add Lesson
       <button class="delete is-large" (click)="closeScreen()">Close</button>
     </div>
     <div class="message-body">
       <div class="field">
-        <div class="control is-loading">
+        <div class="control ">
           <input-field
             [(field)]="body.date"
             inputType="date"
@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="field">
-        <div class="control is-loading">
+        <div class="control ">
           <input-field
             [(field)]="body.time"
             inputType="time"
@@ -30,7 +30,7 @@
         </div>
       </div>
       <div class="field">
-        <div class="control is-loading">
+        <div class="control">
           <input-field
             [(field)]="body.max_participants"
             inputType="number"
@@ -49,9 +49,6 @@
         </div>
       </div>
       <button class="button is-success" (click)="saveLesson()">
-        <span class="icon is-small">
-          <i class="fas fa-check"></i>
-        </span>
         <span>Save</span>
       </button>
     </div>
