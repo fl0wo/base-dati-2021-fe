@@ -42,14 +42,12 @@ export class DayDetailComponent implements OnInit {
                 date:Date,
                 slots:Slot[],
                 message: string,
-                lessons: Lesson[],
                 user: User
               },
               private api:ApiService, public dialog: MatDialog,  private commonService : CommonService) { }
 
   ngOnInit() {
     if(this.data.slots==null) this.data.slots = [];
-    if(this.data.lessons==null) this.data.lessons = [];
 
     if(this.data.message == 'SCSFL') {
       this.dialog.open(MessageResponseDialogComponent, {
@@ -67,11 +65,6 @@ export class DayDetailComponent implements OnInit {
         new Date('1970-01-01T' + b.time_from + 'Z').getTime()
     })
 
-    this.data.lessons = this.data.lessons.sort((a,b)=>{
-      return new Date('1970-01-01T' + a.time + 'Z').getTime()-
-        new Date('1970-01-01T' + b.time + 'Z').getTime()
-    })
-
     this.data.slots.forEach((slot)=>{
       this.events.push({
         'date': this.data.date,
@@ -82,15 +75,6 @@ export class DayDetailComponent implements OnInit {
       });
     })
 
-    this.data.lessons.forEach( (lesson)=>{
-      this.events.push({
-        'date': this.data.date,
-        'header': lesson.course + " " + lesson.time,
-        'body': {'description': lesson.course_description + "\nCurrent capacity: " + lesson.current_reservations + "/"+ lesson.max_participants
-          ,'slot':lesson},
-        'iconheadercolor':'rgb(163, 69, 73)'
-      });
-    })
    }
 
   sendRefreshMainComponent(): void {

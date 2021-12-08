@@ -179,4 +179,10 @@ export class ApiService {
     this.updateToken();
     return this.post<MessageReponse>('/courses/add', newCourse, this.httpOptions);
   }
+
+  makeLessonReservation(idLesson: string) {
+    this.updateToken();
+    let idUser : string = this.user;
+    return this.post<any>('/lessons/reservation', {'idLesson': idLesson, 'idUser': idUser}, this.httpOptions);
+  }
 }

@@ -23,6 +23,7 @@ import { DayDetailComponent } from './day-detail/day-detail.component';
 import { NgxTimelineAlbeModule } from 'ngx-timeline-albe';
 import { NgxTimelineAcracodeModule } from 'ngx-timeline-acracode';
 import { CoursesComponent } from './courses/courses.component';
+import { LessonDetailComponent } from './lesson-detail/lesson-detail.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { CoursesComponent } from './courses/courses.component';
     MessageResponseDialogComponent,
     SlotDetailComponent,
     DayDetailComponent,
-    CoursesComponent
+    CoursesComponent,
+    LessonDetailComponent
   ],
     imports: [
         BrowserModule,

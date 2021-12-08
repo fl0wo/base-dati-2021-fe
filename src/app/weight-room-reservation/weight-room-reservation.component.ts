@@ -8,6 +8,7 @@ import {CommonService} from "../CommonService";
 import {Subscription} from "rxjs";
 import {Lesson} from "../../models/Lesson";
 import {User} from "../../models/User";
+import {LessonDetailComponent} from "../lesson-detail/lesson-detail.component";
 
 export class CalendarDay {
   public date: Date;
@@ -80,8 +81,13 @@ export class WeightRoomReservationComponent implements OnInit {
       this.messageReceived = message.text;
       let date = message.date;
       if((this.messageReceived) == 'updateSlots')
-        this.fillCalendarWithSlots2(()=>{
-          this.showSlotsOf2(date)
+        this.fillCalendarWithSlotsAndReopen(()=>{
+          this.showSlotsOfAndReopen(date)
+        });
+      //updateLessons
+      if((this.messageReceived) == 'updateLessons')
+        this.fillCalendarWithLessonsAndReopen(()=>{
+          this.showLessonsOfDayAndReopen(date)
         });
     });
 
@@ -182,9 +188,18 @@ export class WeightRoomReservationComponent implements OnInit {
     });
   }
 
-  public fillCalendarWithSlots2(f: { (): void; (): void; } | undefined) {
+  public fillCalendarWithSlotsAndReopen(f: { (): void; (): void; } | undefined) {
     this.api.getSlots().subscribe((slotArray) => {
       this.slots=slotArray;
+      if (f) {
+        f();
+      }
+    });
+  }
+
+  public fillCalendarWithLessonsAndReopen(f: { (): void; (): void; } | undefined) {
+    this.api.getLessons().subscribe((lessonArray) => {
+      this.lessons=lessonArray;
       if (f) {
         f();
       }
@@ -208,7 +223,7 @@ export class WeightRoomReservationComponent implements OnInit {
   showLessonsOfDay(date: Date) {
     if(this.seeLessons) {
       this.dialog.closeAll();
-      this.dialog.open(DayDetailComponent, {
+      this.dialog.open(LessonDetailComponent, {
         data: {
           date: date,
           lessons: this.getLessonsOf(date),
@@ -231,12 +246,24 @@ export class WeightRoomReservationComponent implements OnInit {
     }
   }
 
-  showSlotsOf2(date: Date) {
+  showSlotsOfAndReopen(date: Date) {
     this.dialog.closeAll();
     this.dialog.open(DayDetailComponent,{
       data : {
         date : date,
         slots : this.getSlotsOf(date),
+        message: 'SCSFL',
+        user: this.me
+      }
+    });
+  }
+
+  showLessonsOfDayAndReopen(date: Date) {
+    this.dialog.closeAll();
+    this.dialog.open(LessonDetailComponent,{
+      data : {
+        date : date,
+        lessons : this.getLessonsOf(date),
         message: 'SCSFL',
         user: this.me
       }
