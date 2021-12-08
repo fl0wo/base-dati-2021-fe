@@ -8,6 +8,7 @@ import {MessageResponseDialogComponent} from "../shared-components/message-respo
 import {WeightRoomReservationComponent} from "../weight-room-reservation/weight-room-reservation.component";
 import {CommonService} from "../CommonService";
 import {Lesson} from "../../models/Lesson";
+import {Subscription} from "../../models/Subscription";
 
 @Component({
   selector: 'app-day-detail',
@@ -37,6 +38,8 @@ export class DayDetailComponent implements OnInit {
     current_reservation:0,
     max_capacity: 0
   };
+  subscriptions:Subscription[] = [];
+
   constructor(@Inject(MAT_DIALOG_DATA)
               public data: {
                 date:Date,
@@ -48,6 +51,10 @@ export class DayDetailComponent implements OnInit {
 
   ngOnInit() {
     if(this.data.slots==null) this.data.slots = [];
+
+    this.api.getMySubscription().subscribe(subs=>{
+      this.subscriptions=subs;
+    });
 
     if(this.data.message == 'SCSFL') {
       this.dialog.open(MessageResponseDialogComponent, {
@@ -100,4 +107,7 @@ export class DayDetailComponent implements OnInit {
     });
   }
 
+  isntAlreadySubscribed(slot: Slot) {
+    return (this.subscriptions.filter(s => s.slot == slot.id)).length == 0
+  }
 }

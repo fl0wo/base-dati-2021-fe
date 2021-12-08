@@ -55,7 +55,7 @@
     <p class="title">OUR CURRENT COURSES</p>
     <p class="subtitle mY">Check out our current available curses and subscribe!</p>
     <div class="content">
-      <button (click)="changeState()" *ngIf="me.role=='trainer'" class="button inputButton">Add new Course</button>
+      <button (click)="changeState()" *ngIf="me.role=='trainer' || me.role=='admin'" class="button inputButton">Add new Course</button>
       <div [@heightGrow]="state" style="width: 40%" class="center">
         <div *ngIf="wantAddCourse">
           <div class="container">

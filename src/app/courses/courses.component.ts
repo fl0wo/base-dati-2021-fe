@@ -54,7 +54,7 @@ export class CoursesComponent implements OnInit {
     this.initWithCourses();
 
     this.api.getTrainers().subscribe((trainerArray) => {
-      this.trainers=trainerArray;
+        this.trainers=trainerArray;
     });
 
   }

@@ -102,6 +102,22 @@
       {{this.allUsers | json}}
     </div>
 
+    <div>
+      <h3>Accesses</h3>
+      <ul class="block-list is-small">
+        <li class="box" *ngFor="let access of accesses">
+          {{access | json}}
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <h3>Policy</h3>
+      <ul class="block-list is-small">
+          {{policy | json}}
+      </ul>
+    </div>
+
   </div>
 </div>
 

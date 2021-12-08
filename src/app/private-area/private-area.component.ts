@@ -5,6 +5,8 @@ import {ApiService} from "../api.service";
 import {Subscription} from "../../models/Subscription";
 import {faAddressBook, faKey} from "@fortawesome/free-solid-svg-icons";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Policy} from "../../models/Policy";
+import {Access} from "../../models/Access";
 
 @Component({
   selector: 'app-private-area',
@@ -18,6 +20,8 @@ export class PrivateAreaComponent implements OnInit {
   allUsers: User[] = []
   showEditPanel:boolean = false;
   subscriptions:Subscription[] = [];
+  policy!: Policy;
+  accesses: Access[]=[];
 
   icons = {
     basic : faAddressBook,
@@ -46,6 +50,14 @@ export class PrivateAreaComponent implements OnInit {
       this.api.getProfilePic().subscribe(blob=>{
         this.createImageFromBlob(blob);
       })
+
+    this.api.getPolicies().subscribe(policy=>{
+      this.policy = policy;
+    })
+
+    this.api.getAccesses().subscribe(accesses=>{
+      this.accesses = accesses;
+    })
   }
 
   createImageFromBlob(image: Blob) {

@@ -9,6 +9,8 @@ import {Lesson} from "../models/Lesson";
 import {Subscription} from "../models/Subscription";
 import {Returnable} from "../models/Returnable";
 import {Course} from "../models/Course";
+import {Policy} from "../models/Policy";
+import {Access} from "../models/Access";
 
 const STORAGE_USER_TOKEN_KEY = 'user.token';
 const STORAGE_USER_KEY = 'user';
@@ -184,5 +186,15 @@ export class ApiService {
     this.updateToken();
     let idUser : string = this.user;
     return this.post<any>('/lessons/reservation', {'idLesson': idLesson, 'idUser': idUser}, this.httpOptions);
+  }
+
+  getPolicies() {
+    this.updateToken()
+    return this.getAndMap<Policy>('/policies', this.httpOptions);
+  }
+
+  getAccesses() {
+    this.updateToken()
+    return this.getMultipleAndMap<Access>('/accesses', this.httpOptions);
   }
 }

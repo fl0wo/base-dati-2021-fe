@@ -7,6 +7,7 @@ import {ApiService} from "../api.service";
 import {CommonService} from "../CommonService";
 import {MessageResponseDialogComponent} from "../shared-components/message-response-dialog/message-response-dialog.component";
 import {TimelineModel} from "ngx-timeline-acracode";
+import {Subscription} from "../../models/Subscription";
 
 @Component({
   selector: 'app-lesson-detail',
@@ -36,6 +37,9 @@ export class LessonDetailComponent implements OnInit {
     current_reservation:0,
     max_capacity: 0
   };
+
+  subscriptions:Subscription[] = [];
+
   constructor(@Inject(MAT_DIALOG_DATA)
               public data: {
                 date:Date,
@@ -46,6 +50,11 @@ export class LessonDetailComponent implements OnInit {
               private api:ApiService, public dialog: MatDialog,  private commonService : CommonService) { }
 
   ngOnInit(): void {
+
+    this.api.getMySubscription().subscribe(subs=>{
+      this.subscriptions=subs;
+    });
+
     if(this.data.message == 'SCSFL') {
       this.dialog.open(MessageResponseDialogComponent, {
         data: {
@@ -94,6 +103,10 @@ export class LessonDetailComponent implements OnInit {
         message: msg
       }
     });
+  }
+
+  isntAlreadySubscribed(lesson: Lesson) {
+    return (this.subscriptions.filter(s => s.slot == lesson.id)).length == 0
   }
 
 }

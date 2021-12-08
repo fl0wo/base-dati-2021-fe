@@ -10,7 +10,7 @@
   <ng-template let-event let-index="rowIndex" timelineBody>
     {{event.body.description}}
     <br>
-     <button *ngIf="data.user.role=='customer' && event.body.slot && event.body.slot.current_reservations < event.body.slot.max_capacity" (click)="makeSlotReservation(event.body.slot.id)" class="button is-warning">Subscribe</button>
+     <button *ngIf="(data.user.role=='customer' || data.user.role=='admin') && isntAlreadySubscribed(event.body.slot) && event.body.slot && event.body.slot.current_reservations < event.body.slot.max_capacity" (click)="makeSlotReservation(event.body.slot.id)" class="button is-warning">Subscribe</button>
   </ng-template>
  </ngx-timeline-acracode>
 
