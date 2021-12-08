@@ -32,7 +32,7 @@ export class ApiService {
 
   public getAllUsers() {
     this.updateToken();
-    return this.getMultipleAndMap<User>('/users', this.httpOptions);
+    return this.getMultipleAndMap<User>('/users/all', this.httpOptions);
   }
 
   public registerUser(user: User): Observable<MessageReponse> {
@@ -62,10 +62,6 @@ export class ApiService {
       }));
   }
 
-  getSlots(): Observable<Slot[]> {
-    return this.getMultipleAndMap<Slot>('/slots/reservations', this.httpOptions);
-  }
-
   getMe(): Observable<User> {
     this.updateToken();
     return this.getAndMap<User>('/me', this.httpOptions);
@@ -90,7 +86,11 @@ export class ApiService {
 
   addSlot(newSlot: any) {
     this.updateToken();
-    return this.post<MessageReponse>('/slots/add', newSlot, this.httpOptions);
+    return this.post<MessageReponse>('/slots', newSlot, this.httpOptions);
+  }
+
+  getSlots(): Observable<Slot[]> {
+    return this.getMultipleAndMap<Slot>('/slots', this.httpOptions);
   }
 
   makeSlotReservation(idSlot: string) {
@@ -118,7 +118,7 @@ export class ApiService {
   }
 
   getLessons(): Observable<Lesson[]> {
-    return this.getMultipleAndMap<Lesson>('/lessons/reservations', this.httpOptions);
+    return this.getMultipleAndMap<Lesson>('/lessons/reservation', this.httpOptions);
   }
 
   getMySubscription(): Observable<Subscription[]> {
@@ -162,7 +162,7 @@ export class ApiService {
 
   public getCourses(): Observable<Course[]> {
     this.updateToken()
-    return this.getMultipleAndMap<Course>('/courses/all', this.httpOptions);
+    return this.getMultipleAndMap<Course>('/courses', this.httpOptions);
   }
 
   addLesson(newLesson: any) {
@@ -177,7 +177,7 @@ export class ApiService {
 
   addCourse(newCourse: any) {
     this.updateToken();
-    return this.post<MessageReponse>('/courses/add', newCourse, this.httpOptions);
+    return this.post<MessageReponse>('/courses', newCourse, this.httpOptions);
   }
 
   makeLessonReservation(idLesson: string) {
