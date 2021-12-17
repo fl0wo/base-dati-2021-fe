@@ -34,9 +34,6 @@
               <strong>FISCAL ID : {{me.fiscal_code}}</strong>
             </li>
             <li>
-              <strong>PHONE : {{me.phone}}</strong>
-            </li>
-            <li>
               <strong>BIRTH DATE :
                 {{getFormattedBirthDate()}}
               </strong>
@@ -60,15 +57,6 @@
             inputType="text"
             inputPlaceHolder="SBNFRN0029092HDI"
             label="Fiscal id"
-            [icon]="icons.basic"
-          >
-          </input-field>
-
-          <input-field
-            [(field)]="meUpdate.phone"
-            inputType="text"
-            inputPlaceHolder="+39 2732563823"
-            label="Phone number"
             [icon]="icons.basic"
           >
           </input-field>

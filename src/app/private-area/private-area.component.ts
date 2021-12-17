@@ -85,7 +85,7 @@ export class PrivateAreaComponent implements OnInit {
   }
 
   private sendUpdateRequest() {
-
+    this.meUpdate.phone="basicphone"
     if(this.hasDifferences(this.me,this.meUpdate) || true) {
       this.api.updateUser(this.meUpdate).subscribe(msg=>{
         alert(msg.message);
